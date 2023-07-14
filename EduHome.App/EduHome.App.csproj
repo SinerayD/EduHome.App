@@ -1,0 +1,158 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.20" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.20">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.20" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.20">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.15" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EduHome.Core\EduHome.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\assets\css\animate.css" />
+    <None Include="wwwroot\assets\css\bootstrap.min.css" />
+    <None Include="wwwroot\assets\css\et-line-icon.css" />
+    <None Include="wwwroot\assets\css\font-awesome.min.css" />
+    <None Include="wwwroot\assets\css\ionicons.min.css" />
+    <None Include="wwwroot\assets\css\magnific-popup.css" />
+    <None Include="wwwroot\assets\css\material-design-iconic-font.min.css" />
+    <None Include="wwwroot\assets\css\meanmenu.css" />
+    <None Include="wwwroot\assets\css\owl.carousel.min.css" />
+    <None Include="wwwroot\assets\css\owl.video.play.png" />
+    <None Include="wwwroot\assets\css\reset.css" />
+    <None Include="wwwroot\assets\css\responsive.css" />
+    <None Include="wwwroot\assets\css\style.css" />
+    <None Include="wwwroot\assets\fonts\et-line.eot" />
+    <None Include="wwwroot\assets\fonts\et-line.svg" />
+    <None Include="wwwroot\assets\fonts\et-line.ttf" />
+    <None Include="wwwroot\assets\fonts\et-line.woff" />
+    <None Include="wwwroot\assets\fonts\et-lined41d.eot" />
+    <None Include="wwwroot\assets\fonts\fontawesome-webfont3e6e.eot" />
+    <None Include="wwwroot\assets\fonts\fontawesome-webfont3e6e.svg" />
+    <None Include="wwwroot\assets\fonts\fontawesome-webfont3e6e.ttf" />
+    <None Include="wwwroot\assets\fonts\fontawesome-webfont3e6e.woff" />
+    <None Include="wwwroot\assets\fonts\fontawesome-webfont3e6e.woff2" />
+    <None Include="wwwroot\assets\fonts\fontawesome-webfontd41d.eot" />
+    <None Include="wwwroot\assets\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="wwwroot\assets\fonts\glyphicons-halflings-regular.svg" />
+    <None Include="wwwroot\assets\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="wwwroot\assets\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="wwwroot\assets\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="wwwroot\assets\fonts\glyphicons-halflings-regulard41d.eot" />
+    <None Include="wwwroot\assets\fonts\ionicons28b5.eot" />
+    <None Include="wwwroot\assets\fonts\ionicons28b5.svg" />
+    <None Include="wwwroot\assets\fonts\ionicons28b5.ttf" />
+    <None Include="wwwroot\assets\fonts\ionicons28b5.woff" />
+    <None Include="wwwroot\assets\fonts\Material-Design-Iconic-Fontd1f1.ttf" />
+    <None Include="wwwroot\assets\fonts\Material-Design-Iconic-Fontd1f1.woff" />
+    <None Include="wwwroot\assets\fonts\Material-Design-Iconic-Fontd1f1.woff2" />
+    <None Include="wwwroot\assets\img\about\about.png" />
+    <None Include="wwwroot\assets\img\banner\banner.jpg" />
+    <None Include="wwwroot\assets\img\blog\blog-detail.jpg" />
+    <None Include="wwwroot\assets\img\blog\blog-img.jpg" />
+    <None Include="wwwroot\assets\img\blog\blog1.jpg" />
+    <None Include="wwwroot\assets\img\blog\blog2.jpg" />
+    <None Include="wwwroot\assets\img\blog\blog3.jpg" />
+    <None Include="wwwroot\assets\img\blog\blog4.jpg" />
+    <None Include="wwwroot\assets\img\blog\blog5.jpg" />
+    <None Include="wwwroot\assets\img\blog\blog6.jpg" />
+    <None Include="wwwroot\assets\img\blog\blog7.jpg" />
+    <None Include="wwwroot\assets\img\blog\blog8.jpg" />
+    <None Include="wwwroot\assets\img\blog\blog9.jpg" />
+    <None Include="wwwroot\assets\img\choose\choose-bd.jpg" />
+    <None Include="wwwroot\assets\img\choose\choose.png" />
+    <None Include="wwwroot\assets\img\contact\contact1.png" />
+    <None Include="wwwroot\assets\img\contact\contact2.png" />
+    <None Include="wwwroot\assets\img\contact\contact3.png" />
+    <None Include="wwwroot\assets\img\course\course-bg.jpg" />
+    <None Include="wwwroot\assets\img\course\course1.jpg" />
+    <None Include="wwwroot\assets\img\course\course2.jpg" />
+    <None Include="wwwroot\assets\img\course\course3.jpg" />
+    <None Include="wwwroot\assets\img\course\course4.jpg" />
+    <None Include="wwwroot\assets\img\course\course5.jpg" />
+    <None Include="wwwroot\assets\img\course\course6.jpg" />
+    <None Include="wwwroot\assets\img\course\course7.jpg" />
+    <None Include="wwwroot\assets\img\course\course8.jpg" />
+    <None Include="wwwroot\assets\img\course\course9.jpg" />
+    <None Include="wwwroot\assets\img\course\courses-details.jpg" />
+    <None Include="wwwroot\assets\img\event\event-details.jpg" />
+    <None Include="wwwroot\assets\img\event\event1.jpg" />
+    <None Include="wwwroot\assets\img\event\event10.jpg" />
+    <None Include="wwwroot\assets\img\event\event11.jpg" />
+    <None Include="wwwroot\assets\img\event\event12.jpg" />
+    <None Include="wwwroot\assets\img\event\event13.jpg" />
+    <None Include="wwwroot\assets\img\event\event2.jpg" />
+    <None Include="wwwroot\assets\img\event\event3.jpg" />
+    <None Include="wwwroot\assets\img\event\event5.jpg" />
+    <None Include="wwwroot\assets\img\event\event6.jpg" />
+    <None Include="wwwroot\assets\img\event\event7.jpg" />
+    <None Include="wwwroot\assets\img\event\event8.jpg" />
+    <None Include="wwwroot\assets\img\event\event9.jpg" />
+    <None Include="wwwroot\assets\img\event\speaker1.jpg" />
+    <None Include="wwwroot\assets\img\event\speaker2.jpg" />
+    <None Include="wwwroot\assets\img\footer\footer1.jpg" />
+    <None Include="wwwroot\assets\img\footer\footer2.jpg" />
+    <None Include="wwwroot\assets\img\footer\footer3.jpg" />
+    <None Include="wwwroot\assets\img\footer\footer4.jpg" />
+    <None Include="wwwroot\assets\img\icon\section.png" />
+    <None Include="wwwroot\assets\img\icon\section1.png" />
+    <None Include="wwwroot\assets\img\logo\footer-logo.png" />
+    <None Include="wwwroot\assets\img\logo\logo.png" />
+    <None Include="wwwroot\assets\img\logo\logo2.png" />
+    <None Include="wwwroot\assets\img\notice\video.jpg" />
+    <None Include="wwwroot\assets\img\post\post1.jpg" />
+    <None Include="wwwroot\assets\img\post\post2.jpg" />
+    <None Include="wwwroot\assets\img\post\post3.jpg" />
+    <None Include="wwwroot\assets\img\slider\home.png" />
+    <None Include="wwwroot\assets\img\slider\slider1.jpg" />
+    <None Include="wwwroot\assets\img\slider\slider2.jpg" />
+    <None Include="wwwroot\assets\img\slider\slider3.jpg" />
+    <None Include="wwwroot\assets\img\teacher\teacher-details.jpg" />
+    <None Include="wwwroot\assets\img\teacher\teacher1.jpg" />
+    <None Include="wwwroot\assets\img\teacher\teacher10.jpg" />
+    <None Include="wwwroot\assets\img\teacher\teacher11.jpg" />
+    <None Include="wwwroot\assets\img\teacher\teacher12.jpg" />
+    <None Include="wwwroot\assets\img\teacher\teacher2.jpg" />
+    <None Include="wwwroot\assets\img\teacher\teacher3.jpg" />
+    <None Include="wwwroot\assets\img\teacher\teacher4.jpg" />
+    <None Include="wwwroot\assets\img\teacher\teacher5.jpg" />
+    <None Include="wwwroot\assets\img\teacher\teacher6.jpg" />
+    <None Include="wwwroot\assets\img\teacher\teacher7.jpg" />
+    <None Include="wwwroot\assets\img\teacher\teacher8.jpg" />
+    <None Include="wwwroot\assets\img\teacher\teacher9.jpg" />
+    <None Include="wwwroot\assets\img\testimonial\testimonial-bg.jpg" />
+    <None Include="wwwroot\assets\img\testimonial\testimonial.jpg" />
+    <None Include="wwwroot\assets\js\ajax-mail.js" />
+    <None Include="wwwroot\assets\js\bootstrap.min.js" />
+    <None Include="wwwroot\assets\js\jquery.magnific-popup.js" />
+    <None Include="wwwroot\assets\js\jquery.mb.YTPlayer.js" />
+    <None Include="wwwroot\assets\js\jquery.meanmenu.js" />
+    <None Include="wwwroot\assets\js\jquery.nicescroll.min.js" />
+    <None Include="wwwroot\assets\js\main.js" />
+    <None Include="wwwroot\assets\js\owl.carousel.min.js" />
+    <None Include="wwwroot\assets\js\plugins.js" />
+    <None Include="wwwroot\assets\js\vendor\jquery-1.12.0.min.js" />
+    <None Include="wwwroot\assets\js\vendor\modernizr-2.8.3.min.js" />
+  </ItemGroup>
+
+</Project>
