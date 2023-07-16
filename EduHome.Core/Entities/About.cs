@@ -18,6 +18,8 @@ namespace EduHome.Core.Entities
         public string Description { get; set; }
         [Required]
         public string Image { get; set; }
+        public string Link { get; set; }
+
         [NotMapped]
         public IFormFile ImageFile { get; set; }
 

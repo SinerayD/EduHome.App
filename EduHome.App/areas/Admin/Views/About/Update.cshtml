@@ -1,25 +1,29 @@
 ﻿@model About
-<div class="container" style="margin-top:100px">
-    <form asp-controller="About" asp-action="Update" method="post" enctype="multipart/form-data">
+<div class="container">
+    <h2>Edit About</h2>
+    <form asp-controller="About" asp-action="Update" asp-route-id="@Model.Id" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Id" />
         <div class="form-group">
-            <label for="Title">Title</label>
-            <span class="alert text-danger"></span>
-            <input type="text" class="form-control" id="Title" name="Title" asp-for="@Model.Title">
-            <span class="text text-danger" asp-validation-for="@Model.Title"></span>
+            <label asp-for="Title">Title</label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label for="Description">Description</label>
-            <span class="alert text-danger"></span>
-            <textarea class="form-control" id="Description" name="Description" asp-for="@Model.Description"></textarea>
-            <span class="text text-danger" asp-validation-for="@Model.Description"></span>
+            <label asp-for="Description">Description</label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label for="ImageFile">Image</label>
-            <span class="alert text-danger"></span>
-            <input type="file" class="form-control-file" id="ImageFile" name="ImageFile" asp-for="@Model.Image">
-            <span class="text text-danger" asp-validation-for="@Model.Image"></span>
+            <label asp-for="ImageFile">Image</label>
+            <input asp-for="ImageFile" type="file" class="form-control-file" />
+            <span asp-validation-for="ImageFile" class="text-danger"></span>
         </div>
-        <input type="hidden" asp-for="@Model.Id" />
+        <div class="form-group">
+            <label asp-for="Link">Link</label>
+            <input asp-for="Link" class="form-control" />
+            <span asp-validation-for="Link" class="text-danger"></span>
+        </div>
         <button type="submit" class="btn btn-primary">Update</button>
     </form>
 </div>
+

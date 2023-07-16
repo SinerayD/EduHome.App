@@ -12,18 +12,17 @@ using EduHomeCore.Entities;
 
 namespace EduHome.Core.Entities
 {
-    public class Teacher :BaseModel
+    public class Teacher : BaseModel
     {
-        [Required(ErrorMessage = "Name is required")]
+        [Required(ErrorMessage = "Full Name is required")]
         [MaxLength(30)]
         [Display(Name = "Teacher FullName")]
         public string FullName { get; set; }
         public string? Image { get; set; }
         public string Title { get; set; }
-        public string Links { get; set; }   
-
         public int PositionId { get; set; }
         public Position? Position { get; set; }
+        public List<Social>Socials { get; set; }
         [NotMapped]
         public IFormFile? FormFile { get; set; }
     }

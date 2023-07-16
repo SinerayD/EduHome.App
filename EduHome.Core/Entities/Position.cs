@@ -9,13 +9,12 @@ using System.Xml.Linq;
 
 namespace EduHome.Core.Entities
 {
-    public class Position:BaseModel
+    public class Position : BaseModel
     {
         [Required(ErrorMessage = "Name is required")]
         [MaxLength(30)]
         [Display(Name = "Position Name")]
         public string Name { get; set; }
-        [Key]
         public List<Teacher>? Teachers { get; set; }
     }
 }
