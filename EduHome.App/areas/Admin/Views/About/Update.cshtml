@@ -1,0 +1,25 @@
+﻿@model About
+<div class="container" style="margin-top:100px">
+    <form asp-controller="About" asp-action="Update" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="Title">Title</label>
+            <span class="alert text-danger"></span>
+            <input type="text" class="form-control" id="Title" name="Title" asp-for="@Model.Title">
+            <span class="text text-danger" asp-validation-for="@Model.Title"></span>
+        </div>
+        <div class="form-group">
+            <label for="Description">Description</label>
+            <span class="alert text-danger"></span>
+            <textarea class="form-control" id="Description" name="Description" asp-for="@Model.Description"></textarea>
+            <span class="text text-danger" asp-validation-for="@Model.Description"></span>
+        </div>
+        <div class="form-group">
+            <label for="ImageFile">Image</label>
+            <span class="alert text-danger"></span>
+            <input type="file" class="form-control-file" id="ImageFile" name="ImageFile" asp-for="@Model.Image">
+            <span class="text text-danger" asp-validation-for="@Model.Image"></span>
+        </div>
+        <input type="hidden" asp-for="@Model.Id" />
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</div>

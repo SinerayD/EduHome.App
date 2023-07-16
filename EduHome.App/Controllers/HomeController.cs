@@ -1,12 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EduHome.App.ViewModel;
+using EduHomeApp.Context;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Fiorello.App.areas.Admin.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly EduHomeDbContext _context;
+        public HomeController(EduHomeDbContext context)
         {
-            return View();
+            _context = context;
+        }
+        public async Task <IActionResult> Index()
+        {
+            HomeViewModel homeViewModel = new HomeViewModel();
+            homeViewModel.About = await _context.Abouts.FirstOrDefaultAsync();
+            return View(homeViewModel); 
+
         }
     }
 }
