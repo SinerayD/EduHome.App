@@ -1,33 +1,48 @@
-﻿using EduHome.Core.Entities;
+﻿using EduHome.App.Extensions;
+using EduHome.App.Helpers;
+using EduHome.Core.Entities;
 using EduHomeApp.Context;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace EduHome.App.Areas.Admin.Controllers
+namespace EduHomeApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin,SuperAdmin")]
     public class TeacherController : Controller
     {
         private readonly EduHomeDbContext _context;
+        private readonly IWebHostEnvironment _env;
 
-        public TeacherController(EduHomeDbContext context)
+        public TeacherController(EduHomeDbContext context, IWebHostEnvironment env)
         {
             _context = context;
+            _env = env;
         }
 
         public async Task<IActionResult> Index()
         {
-            List<Teacher> teachers = await _context.Teachers.Include(t => t.Position).ToListAsync();
+            IEnumerable<Teacher> teachers = await _context.Teachers
+                .Include(t => t.Position)
+                .Include(t => t.TeacherHobbies).ThenInclude(th => th.Hobby)
+                .Include(t => t.Degree)
+                .Include(t => t.Skills)
+                .Include(t => t.Socials)
+                .ToListAsync();
+
             return View(teachers);
         }
 
-        public IActionResult Create()
+
+        public async Task<IActionResult> Create()
         {
-            ViewBag.Positions = _context.Positions.ToList();
+            ViewBag.Positions = await _context.Positions.Where(x => !x.IsDeleted).ToListAsync();
+            ViewBag.Hobbies = await _context.Hobbies.Where(x => !x.IsDeleted).ToListAsync();
+            ViewBag.Degrees = await _context.Degrees.Where(x => !x.IsDeleted).ToListAsync();
+            ViewBag.Skills = await _context.Skills.Where(x => !x.IsDeleted).ToListAsync();
+            ViewBag.Socials = await _context.Socials.Where(x => !x.IsDeleted).ToListAsync();
+
             return View();
         }
 
@@ -35,37 +50,60 @@ namespace EduHome.App.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Teacher teacher)
         {
-            if (ModelState.IsValid)
-            {
-                if (teacher.FormFile != null && teacher.FormFile.Length > 0)
-                {
-                    string fileName = Path.GetFileName(teacher.FormFile.FileName);
-                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/teachers", fileName);
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await teacher.FormFile.CopyToAsync(stream);
-                    }
-                    teacher.Image = fileName;
-                }
+            ViewBag.Positions = await _context.Positions.Where(x => !x.IsDeleted).ToListAsync();
+            ViewBag.Hobbies = await _context.Hobbies.Where(x => !x.IsDeleted).ToListAsync();
+            ViewBag.Degrees = await _context.Degrees.Where(x => !x.IsDeleted).ToListAsync();
+            ViewBag.Skills = await _context.Skills.Where(x => !x.IsDeleted).ToListAsync();
+            ViewBag.Socials = await _context.Socials.Where(x => !x.IsDeleted).ToListAsync();
 
-                _context.Teachers.Add(teacher);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+            if (teacher.FormFile == null)
+            {
+                ModelState.AddModelError(nameof(Teacher.FormFile), "The image is required.");
+                return View();
             }
 
-            ViewBag.Positions = _context.Positions.ToList();
-            return View(teacher);
+            if (!Helper.IsImage(teacher.FormFile))
+            {
+                ModelState.AddModelError(nameof(Teacher.FormFile), "The selected file is not a valid image.");
+                return View();
+            }
+
+            if (!Helper.IsSizeOk(teacher.FormFile, 1))
+            {
+                ModelState.AddModelError(nameof(Teacher.FormFile), "The image size cannot exceed 1MB.");
+                return View();
+            }
+
+
+            teacher.Image = teacher.FormFile.CreateImage(_env.WebRootPath, "assets/images");
+
+            _context.Teachers.Add(teacher);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
+
 
         public async Task<IActionResult> Update(int id)
         {
-            Teacher teacher = await _context.Teachers.Include(t => t.Position).FirstOrDefaultAsync(t => t.Id == id);
-            if (teacher == null)
-            {
-                return NotFound();
-            }
+            ViewBag.Positions = await _context.Positions.Where(x => !x.IsDeleted).ToListAsync();
+            ViewBag.Hobbies = await _context.Hobbies.Where(x => !x.IsDeleted).ToListAsync();
+            ViewBag.Degrees = await _context.Degrees.Where(x => !x.IsDeleted).ToListAsync();
+            ViewBag.Skills = await _context.Skills.Where(x => !x.IsDeleted).ToListAsync();
+            ViewBag.Socials = await _context.Socials.Where(x => !x.IsDeleted).ToListAsync();
 
-            ViewBag.Positions = _context.Positions.ToList();
+            Teacher teacher = await _context.Teachers
+                .Include(t => t.Position)
+                .Include(t => t.TeacherHobbies)
+                .ThenInclude(th => th.Hobby)
+                .Include(t => t.Degree)
+                .Include(t => t.Skills)
+                .Include(t => t.Socials)
+                .FirstOrDefaultAsync(t => t.Id == id);
+
+            if (teacher == null)
+                return NotFound();
+
             return View(teacher);
         }
 
@@ -73,55 +111,72 @@ namespace EduHome.App.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(int id, Teacher teacher)
         {
-            if (id != teacher.Id)
-            {
+            ViewBag.Positions = await _context.Positions.Where(x => !x.IsDeleted).ToListAsync();
+            ViewBag.Hobbies = await _context.Hobbies.Where(x => !x.IsDeleted).ToListAsync();
+            ViewBag.Degrees = await _context.Degrees.Where(x => !x.IsDeleted).ToListAsync();
+            ViewBag.Skills = await _context.Skills.Where(x => !x.IsDeleted).ToListAsync();
+            ViewBag.Socials = await _context.Socials.Where(x => !x.IsDeleted).ToListAsync();
+
+            Teacher existingTeacher = await _context.Teachers
+                .Include(t => t.Position)
+                .Include(t => t.TeacherHobbies)
+                .ThenInclude(th => th.Hobby)
+                .Include(t => t.Degree)
+                .Include(t => t.Skills)
+                .Include(t => t.Socials)
+                .FirstOrDefaultAsync(t => t.Id == id);
+
+            if (existingTeacher == null)
                 return NotFound();
-            }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+                return View(existingTeacher);
+
+            if (teacher.FormFile != null)
             {
-                Teacher existingTeacher = await _context.Teachers.FindAsync(id);
-                if (existingTeacher == null)
+                bool isImage = Helper.IsImage(teacher.FormFile);
+                bool isSizeOk = Helper.IsSizeOk(teacher.FormFile, 1);
+
+                if (!isImage)
                 {
-                    return NotFound();
+                    ModelState.AddModelError("FormFile", "The selected file is not a valid image.");
+                    return View(existingTeacher);
                 }
 
-                existingTeacher.FullName = teacher.FullName;
-                existingTeacher.Title = teacher.Title;
-                existingTeacher.PositionId = teacher.PositionId;
-
-                if (teacher.FormFile != null && teacher.FormFile.Length > 0)
+                if (!isSizeOk)
                 {
-                    string fileName = Path.GetFileName(teacher.FormFile.FileName);
-                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/teachers", fileName);
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await teacher.FormFile.CopyToAsync(stream);
-                    }
-                    existingTeacher.Image = fileName;
+                    ModelState.AddModelError("FormFile", "The image size cannot exceed 1MB.");
+                    return View(existingTeacher);
                 }
 
-                _context.Update(existingTeacher);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                existingTeacher.Image = teacher.FormFile.CreateImage(_env.WebRootPath, "assets/images");
             }
 
-            ViewBag.Positions = _context.Positions.ToList();
-            return View(teacher);
+
+            existingTeacher.PositionId = teacher.PositionId;
+            existingTeacher.FullName = teacher.FullName;
+            existingTeacher.UpdatedDate = DateTime.Now;
+            existingTeacher.TeacherHobbies = teacher.TeacherHobbies;
+            existingTeacher.Skills = teacher.Skills;
+            existingTeacher.Socials = teacher.Socials;
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
-            Teacher teacher = await _context.Teachers.FindAsync(id);
+            Teacher? teacher = await _context.Teachers.FindAsync(id);
             if (teacher == null)
-            {
                 return NotFound();
-            }
 
             _context.Teachers.Remove(teacher);
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
     }

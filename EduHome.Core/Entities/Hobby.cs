@@ -8,17 +8,10 @@ using System.Threading.Tasks;
 
 namespace EduHome.Core.Entities
 {
-    public class Social : BaseModel
+    public class Hobby:BaseModel
     {
         [Required]
         public string? Name { get; set; }
-        [Required]
-        public string? Link { get; set; }
-        [Required]
-        public int? TeacherId { get; set; }
-        [Required]
-        public Teacher ?Teacher { get; set; }
-
-
+        public List<Teacher>? Teachers { get; set; }
     }
 }
