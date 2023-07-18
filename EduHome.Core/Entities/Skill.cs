@@ -11,12 +11,11 @@ namespace EduHome.Core.Entities
     public class Skill:BaseModel
     {
         [Required]
-        public string? Name { get; set; }
+        public string Name { get; set; }
         [Required]
-        public int? SkillPercent { get; set; }
+        public int SkillPercent { get; set; }
         [Required]
-        public int? TeacherId { get; set; }
-        [Required]
+        public int TeacherId { get; set; }
         public Teacher? Teacher { get; set; }
     }
 }

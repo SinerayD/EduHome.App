@@ -24,7 +24,7 @@ using EduHomeCore.Entities;
             [Required(ErrorMessage = "Email is required")]
             [EmailAddress(ErrorMessage = "Invalid Email Address")]
             public string Mail { get; set; }
-            public string? AboutMe { get; set; }
+            public string AboutMe { get; set; }
 
             public string? Skype { get; set; }
 
@@ -33,9 +33,9 @@ using EduHomeCore.Entities;
 
             [Phone(ErrorMessage = "Invalid Phone Number")]
             [Display(Name = "Phone Number")]
-            public string? PhoneNumber { get; set; }
+            public string PhoneNumber { get; set; }
 
-            public string? Faculty { get; set; }
+            public string Faculty { get; set; }
 
             [Required(ErrorMessage = "Title is required")]
             public string Title { get; set; }
