@@ -1,6 +1,7 @@
 ﻿using EduHomeCore.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -9,14 +10,17 @@ using System.Xml.Linq;
 
 namespace EduHome.Core.Entities
 {
-    public class CourseCategory:BaseModel
+    public class BlogCategory:BaseModel
     {
         [Display(Name = "Category")]
-        public int CategoryId { get; set; } 
+        public int CategoryId { get; set; }
+
         public Category? Category { get; set; }
 
-        [Display(Name = "Course")]
-        public int CourseId { get; set; }
-        public Course? Course { get; set; }
+        [Display(Name = "Blog")]
+        public int BlogId { get; set; }
+
+        public Blog? Blog { get; set; }
     }
+
 }

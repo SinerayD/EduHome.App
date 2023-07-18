@@ -87,3 +87,4 @@ namespace EduHome.App.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
     }
+}
