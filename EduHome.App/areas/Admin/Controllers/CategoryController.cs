@@ -26,6 +26,7 @@ namespace EduHome.App.areas.Admin.Controllers
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Category category)
@@ -38,14 +39,20 @@ namespace EduHome.App.areas.Admin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            Category? category = await _context.Categories.Where(x => !x.IsDeleted && x.Id == id).FirstOrDefaultAsync();
+            Category? category = await _context.Categories.
+                Where(x => !x.IsDeleted && x.Id == id).
+                FirstOrDefaultAsync();
+
             if (category == null)
                 return NotFound();
 
             return View(category);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(int id, Category postcategory)
@@ -64,6 +71,7 @@ namespace EduHome.App.areas.Admin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {

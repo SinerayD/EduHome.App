@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EduHome.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,6 +12,6 @@ namespace EduHomeCore.Entities
     {
         [Required]
         public string? Name { get; set; }
-
+        public List<CourseCategory>? CourseCategories { get; set; } 
     }
 }
