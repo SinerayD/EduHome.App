@@ -15,7 +15,6 @@ namespace Fiorello.App.areas.Admin.Controllers
         public async Task <IActionResult> Index()
         {
             HomeViewModel homeViewModel = new HomeViewModel();
-            homeViewModel.About = await _context.Abouts.FirstOrDefaultAsync();
             return View(homeViewModel); 
 
         }

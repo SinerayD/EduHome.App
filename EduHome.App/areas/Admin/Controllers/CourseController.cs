@@ -18,7 +18,7 @@ namespace EduHome.App.areas.Admin.Controllers
                 _context = context;
                 _environment = environment;
             }
-        ;
+        
             public async Task<IActionResult> Index()
             {
                 IEnumerable<Course> courses = await _context.Courses
@@ -92,7 +92,7 @@ namespace EduHome.App.areas.Admin.Controllers
             [HttpGet]
             public async Task<IActionResult> Update(int id)
             {
-                Course course = await _context.Courses
+                Course? course = await _context.Courses
                     .Where(c => !c.IsDeleted && c.Id == id)
                     .Include(c => c.CourseLanguage)
                     .Include(c => c.CourseAssets)
@@ -119,7 +119,7 @@ namespace EduHome.App.areas.Admin.Controllers
             [ValidateAntiForgeryToken]
             public async Task<IActionResult> Update(int id, Course course)
             {
-                Course updatedCourse = await _context.Courses
+                Course? updatedCourse = await _context.Courses
                     .Where(c => !c.IsDeleted && c.Id == id)
                     .Include(c => c.CourseLanguage)
                     .Include(c => c.CourseAssets)
@@ -187,7 +187,7 @@ namespace EduHome.App.areas.Admin.Controllers
             [HttpGet]
             public async Task<IActionResult> Delete(int id)
             {
-                Course course = await _context.Courses
+                Course? course = await _context.Courses
                     .Where(c => !c.IsDeleted && c.Id == id)
                     .FirstOrDefaultAsync();
 
@@ -202,7 +202,7 @@ namespace EduHome.App.areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            private List<CourseCategory> GetSelectedCategories(List<int> categoryIds)
+            public List<CourseCategory> GetSelectedCategories(List<int> categoryIds)
             {
                 return _context.Categories
                     .Where(c => categoryIds.Contains(c.Id) && !c.IsDeleted)
@@ -214,7 +214,7 @@ namespace EduHome.App.areas.Admin.Controllers
                     .ToList();
             }
 
-            private List<CourseTag> GetSelectedTags(List<int> tagIds)
+            public List<CourseTag> GetSelectedTags(List<int> tagIds)
             {
                 return _context.Tags
                     .Where(t => tagIds.Contains(t.Id) && !t.IsDeleted)
@@ -228,4 +228,4 @@ namespace EduHome.App.areas.Admin.Controllers
         }
     }
 
-}
+

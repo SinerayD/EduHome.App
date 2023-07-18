@@ -2,27 +2,29 @@
 using EduHomeApp.Context;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-
-namespace EduHome.App.Areas.Admin.Controllers
+namespace Fir.App.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class HobbyController : Controller
+    public class CourseLanguageController : Controller
     {
         private readonly EduHomeDbContext _context;
 
-        public HobbyController(EduHomeDbContext context)
+        public CourseLanguageController(EduHomeDbContext context)
         {
             _context = context;
         }
 
         public async Task<IActionResult> Index()
         {
-            IEnumerable<Hobby> hobbies = await _context.Hobbies
+            IEnumerable<CourseLanguage> courseLanguages = await _context.CourseLanguages
                 .Where(c => !c.IsDeleted)
                 .ToListAsync();
 
-            return View(hobbies);
+            return View(courseLanguages);
         }
 
         [HttpGet]
@@ -33,14 +35,14 @@ namespace EduHome.App.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Hobby hobby)
+        public async Task<IActionResult> Create(CourseLanguage courseLanguage)
         {
             if (!ModelState.IsValid)
             {
                 return View();
             }
 
-            _context.Hobbies.Add(hobby);
+            _context.CourseLanguages.Add(courseLanguage);
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
@@ -49,38 +51,38 @@ namespace EduHome.App.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            Hobby? hobby = await _context.Hobbies
+            CourseLanguage? courseLanguage = await _context.CourseLanguages
                 .Where(c => !c.IsDeleted && c.Id == id)
                 .FirstOrDefaultAsync();
 
-            if (hobby == null)
+            if (courseLanguage == null)
             {
                 return NotFound();
             }
 
-            return View(hobby);
+            return View(courseLanguage);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(int id, Hobby hobby)
+        public async Task<IActionResult> Update(int id, CourseLanguage courseLanguage)
         {
-            Hobby? updatedHobby = await _context.Hobbies
+            CourseLanguage? updatedCourseLanguage = await _context.CourseLanguages
                 .Where(c => !c.IsDeleted && c.Id == id)
                 .FirstOrDefaultAsync();
 
-            if (updatedHobby == null)
+            if (updatedCourseLanguage == null)
             {
                 return NotFound();
             }
 
             if (!ModelState.IsValid)
             {
-                return View(updatedHobby);
+                return View(updatedCourseLanguage);
             }
 
-            updatedHobby.Name = hobby.Name;
-            updatedHobby.UpdatedDate = DateTime.Now;
+            updatedCourseLanguage.Name = courseLanguage.Name;
+            updatedCourseLanguage.UpdatedDate = DateTime.Now;
 
             await _context.SaveChangesAsync();
 
@@ -90,21 +92,19 @@ namespace EduHome.App.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            Hobby? hobby = await _context.Hobbies
+            CourseLanguage? courseLanguage = await _context.CourseLanguages
                 .Where(c => !c.IsDeleted && c.Id == id)
                 .FirstOrDefaultAsync();
 
-            if (hobby == null)
+            if (courseLanguage == null)
             {
                 return NotFound();
             }
 
-            hobby.IsDeleted = true;
+            courseLanguage.IsDeleted = true;
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
         }
     }
 }
-
-

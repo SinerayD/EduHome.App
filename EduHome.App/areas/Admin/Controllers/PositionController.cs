@@ -2,9 +2,6 @@
 using EduHomeApp.Context;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace EduHome.App.Areas.Admin.Controllers
 {
@@ -12,80 +9,81 @@ namespace EduHome.App.Areas.Admin.Controllers
     public class PositionController : Controller
     {
         private readonly EduHomeDbContext _context;
-
         public PositionController(EduHomeDbContext context)
         {
             _context = context;
         }
-
         public async Task<IActionResult> Index()
         {
-            List<Position> positions = await _context.Positions.ToListAsync();
+            IEnumerable<Position> positions = await _context.Positions.
+                Where(c => !c.IsDeleted).ToListAsync();
             return View(positions);
         }
 
-        public IActionResult Create()
+        [HttpGet]
+        public async Task<IActionResult> Create()
         {
             return View();
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Position position)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Positions.Add(position);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return View();
             }
-
-            return View(position);
+            position.CreatedDate = DateTime.Now;
+            await _context.AddAsync(position);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("index", "position");
         }
 
-        public async Task<IActionResult> Edit(int id)
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
         {
-            Position position = await _context.Positions.FindAsync(id);
+            Position? position = await _context.Positions.
+                Where(x => !x.IsDeleted && x.Id == id).
+                FirstOrDefaultAsync();
             if (position == null)
             {
                 return NotFound();
             }
-
             return View(position);
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Position position)
+        public async Task<IActionResult> Update(int id, Position position)
         {
-            if (id != position.Id)
+            Position? UpdatePosition = await _context.Positions.
+                Where(x => !x.IsDeleted && x.Id == id).
+                FirstOrDefaultAsync();
+            if (position == null)
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Update(position);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return View(UpdatePosition);
             }
-
-            return View(position);
+            UpdatePosition.UpdatedDate = DateTime.Now;
+            UpdatePosition.Name = position.Name;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            Position position = await _context.Positions.FindAsync(id);
+            Position? position = await _context.Positions.
+                Where(x => !x.IsDeleted && x.Id == id).
+                FirstOrDefaultAsync();
             if (position == null)
             {
                 return NotFound();
             }
+            position.IsDeleted = true;
 
-            _context.Positions.Remove(position);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
     }
-}

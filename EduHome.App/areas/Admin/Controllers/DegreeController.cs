@@ -20,10 +20,13 @@ namespace EduHome.App.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            List<Degree> degrees = await _context.Degrees.ToListAsync();
+            IEnumerable<Degree> degrees = await _context.Degrees.
+                Where(x=>!x.IsDeleted).
+                ToListAsync();
             return View(degrees);
         }
 
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
@@ -43,9 +46,10 @@ namespace EduHome.App.Areas.Admin.Controllers
             return View(degree);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            Degree degree = await _context.Degrees.FindAsync(id);
+            Degree? degree = await _context.Degrees.FindAsync(id);
             if (degree == null)
             {
                 return NotFound();
@@ -75,7 +79,7 @@ namespace EduHome.App.Areas.Admin.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            Degree degree = await _context.Degrees.FindAsync(id);
+            Degree? degree = await _context.Degrees.FindAsync(id);
             if (degree == null)
             {
                 return NotFound();
@@ -87,3 +91,4 @@ namespace EduHome.App.Areas.Admin.Controllers
         }
     }
 }
+
