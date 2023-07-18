@@ -23,6 +23,7 @@ namespace EduHomeApp.Context
         public DbSet<CourseLanguage> CourseLanguages { get; set; }
         public DbSet<TeacherHobby> TeacherHobbies { get; set; }
         public DbSet<Setting> Settings { get; set; }
+        public DbSet<Slider> Sliders { get; set; }
         public EduHomeDbContext(DbContextOptions<EduHomeDbContext> options) : base(options)
         {
 
