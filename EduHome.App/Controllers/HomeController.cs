@@ -14,7 +14,16 @@ namespace Fiorello.App.areas.Admin.Controllers
         }
         public async Task <IActionResult> Index()
         {
-            HomeViewModel homeViewModel = new HomeViewModel();
+            HomeViewModel homeViewModel = new HomeViewModel
+            {
+                Courses=await _context.Courses.Where(x=>!x.IsDeleted).ToListAsync(), 
+                Categories = await _context.Categories.Where(x => !x.IsDeleted).ToListAsync(),
+                Teachers = await _context.Teachers.Where(x => !x.IsDeleted)
+                .Include(x => x.Position)
+               .Include(x => x.Socials)
+                .ToListAsync(),
+                Blogs = await _context.Blogs.Where(x => !x.IsDeleted).ToListAsync(),
+            };
             return View(homeViewModel); 
 
         }

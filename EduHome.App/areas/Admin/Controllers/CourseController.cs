@@ -198,7 +198,6 @@ namespace EduHome.App.areas.Admin.Controllers
 
                 course.IsDeleted = true;
                 await _context.SaveChangesAsync();
-
                 return RedirectToAction(nameof(Index));
             }
 

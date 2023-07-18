@@ -8,6 +8,7 @@ namespace EduHomeApp.Context
     public class EduHomeDbContext : DbContext
     {
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Position> Positions { get; set; }
         public DbSet<Social> Socials { get; set; }
@@ -21,6 +22,7 @@ namespace EduHomeApp.Context
         public DbSet<Course> Courses { get; set; }
         public DbSet<CourseLanguage> CourseLanguages { get; set; }
         public DbSet<TeacherHobby> TeacherHobbies { get; set; }
+        public DbSet<Setting> Settings { get; set; }
         public EduHomeDbContext(DbContextOptions<EduHomeDbContext> options) : base(options)
         {
 
