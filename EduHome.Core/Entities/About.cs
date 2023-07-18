@@ -21,7 +21,7 @@ namespace EduHome.Core.Entities
         public string Link { get; set; }
 
         [NotMapped]
-        public IFormFile ImageFile { get; set; }
+        public IFormFile FormFile { get; set; }
 
 
     }

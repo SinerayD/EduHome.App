@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using EduHome.Core.Entities;
+﻿using EduHome.Core.Entities;
 using EduHomeApp.Context;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace EduHome.App.Areas.Admin.Controllers
 {
@@ -24,9 +22,9 @@ namespace EduHome.App.Areas.Admin.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            About about = _context.Abouts.FirstOrDefault();
+            About? about = _context.Abouts.FirstOrDefault();
             return View(about);
         }
 
@@ -38,22 +36,22 @@ namespace EduHome.App.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(About about)
+        public async Task<IActionResult> Create(About about, IFormFile imageFile)
         {
             if (!ModelState.IsValid)
             {
                 return View(about);
             }
 
-            if (about.ImageFile != null && about.ImageFile.Length > 0)
+            if (imageFile != null && imageFile.Length > 0)
             {
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + imageFile.FileName;
                 string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images/abouts");
-                string uniqueFileName = Guid.NewGuid().ToString() + "_" + about.ImageFile.FileName;
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
-                    await about.ImageFile.CopyToAsync(stream);
+                    await imageFile.CopyToAsync(stream);
                 }
 
                 about.Image = uniqueFileName;
@@ -68,7 +66,7 @@ namespace EduHome.App.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            About about = await _context.Abouts.FindAsync(id);
+            About? about = await _context.Abouts.FindAsync(id);
 
             if (about == null)
             {
@@ -80,30 +78,29 @@ namespace EduHome.App.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(int id, About postAbout)
+        public async Task<IActionResult> Update(int id, About updatedAbout, IFormFile imageFile)
         {
             if (!ModelState.IsValid)
             {
-                return View();
+                return View(updatedAbout);
             }
 
-            About about = await _context.Abouts.FindAsync(id);
+            About? about = await _context.Abouts.FindAsync(id);
 
             if (about == null)
             {
                 return NotFound();
             }
 
-            about.Title = postAbout.Title;
-            about.Description = postAbout.Description;
+            about.Title = updatedAbout.Title;
+            about.Description = updatedAbout.Description;
 
-            if (postAbout.ImageFile != null && postAbout.ImageFile.Length > 0)
+            if (imageFile != null && imageFile.Length > 0)
             {
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + imageFile.FileName;
                 string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images/abouts");
-                string uniqueFileName = Guid.NewGuid().ToString() + "_" + postAbout.ImageFile.FileName;
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
-             
                 if (!string.IsNullOrEmpty(about.Image))
                 {
                     string existingFilePath = Path.Combine(uploadsFolder, about.Image);
@@ -115,7 +112,7 @@ namespace EduHome.App.Areas.Admin.Controllers
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
-                    await postAbout.ImageFile.CopyToAsync(stream);
+                    await imageFile.CopyToAsync(stream);
                 }
 
                 about.Image = uniqueFileName;
@@ -129,14 +126,13 @@ namespace EduHome.App.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            About about = await _context.Abouts.FindAsync(id);
+            About? about = await _context.Abouts.FindAsync(id);
 
             if (about == null)
             {
                 return NotFound();
             }
 
-            
             if (!string.IsNullOrEmpty(about.Image))
             {
                 string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images/abouts");

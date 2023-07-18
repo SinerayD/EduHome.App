@@ -152,4 +152,8 @@
     <None Include="wwwroot\assets\js\vendor\modernizr-2.8.3.min.js" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\NewFolder\" />
+  </ItemGroup>
+
 </Project>

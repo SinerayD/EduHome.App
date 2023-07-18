@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace EduHomeApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin,SuperAdmin")]
+    //[Authorize(Roles = "Admin,SuperAdmin")]
     public class TeacherController : Controller
     {
         private readonly EduHomeDbContext _context;
@@ -29,6 +29,7 @@ namespace EduHomeApp.Areas.Admin.Controllers
                 .Include(t => t.Degree)
                 .Include(t => t.Skills)
                 .Include(t => t.Socials)
+
                 .ToListAsync();
 
             return View(teachers);
