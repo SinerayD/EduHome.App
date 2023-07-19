@@ -18,6 +18,7 @@ namespace EduHomeApp.Context
         public DbSet<Skill> Skills { get; set; }
         public DbSet<CourseAssets> CourseAssets { get; set; }
         public DbSet<CourseCategory> CourseCategories { get; set; }
+        public DbSet<BlogCategory> BlogCategories { get; set; }
         public DbSet<CourseTag> CourseTags { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Course> Courses { get; set; }
