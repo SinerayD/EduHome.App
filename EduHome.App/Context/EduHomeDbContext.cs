@@ -1,12 +1,13 @@
-﻿
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using EduHome.Core.Entities;
 using EduHomeCore.Entities;
-using Microsoft.EntityFrameworkCore;
+using EduHome.Core.Entities;
 
 namespace EduHomeApp.Context
 {
-    public class EduHomeDbContext : DbContext
-    {
+    public class EduHomeDbContext : IdentityDbContext<AppUser> 
+    { 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
