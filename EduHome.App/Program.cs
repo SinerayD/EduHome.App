@@ -16,6 +16,7 @@ builder.Services.AddDbContext<EduHomeDbContext>(opt =>
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IMailService, MailService>();
 builder.Services.AddIdentity<AppUser, IdentityRole>()
+    .AddDefaultTokenProviders()
     .AddEntityFrameworkStores<EduHomeDbContext>();
 builder.Services.Configure<IdentityOptions>(options =>
 {

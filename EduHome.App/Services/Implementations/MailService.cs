@@ -33,7 +33,7 @@ namespace EduHome.App.Services.Implementations
             SmtpClient smtp = new SmtpClient();
             smtp.Host = "smtp.gmail.com";
             smtp.EnableSsl = true;
-            NetworkCredential NetworkCred = new NetworkCredential("pm4283719@gmail.com", "tawtuekqpqzaioie");
+            NetworkCredential NetworkCred = new NetworkCredential("sineraytd@code.edu.az", "wfzhvltkizgqhwbo");
             smtp.UseDefaultCredentials = false;
             smtp.Credentials = NetworkCred;
             smtp.Port = 587;

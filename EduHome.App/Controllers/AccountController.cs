@@ -62,7 +62,7 @@ namespace EduHome.App.Controllers
 
             string text = $"<a href='{link}' id='link-a' target='_blank' style='display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;'>Click for verify email</a>";
 
-            await _mailService.Send("pm4283719@gmail.com", appUser.Email, link, text, "Verify Email");
+            await _mailService.Send("sineraytd@code.edu.az", appUser.Email, link, text, "Verify Email");
 
             TempData["Register"] = "please verify your email.";
             return RedirectToAction("index", "home");
@@ -102,7 +102,7 @@ namespace EduHome.App.Controllers
             {
                 if (result.IsLockedOut)
                 {
-                    ModelState.AddModelError("", "Your account is blocked for 5 minute");
+                    ModelState.AddModelError("", "Your account is blocked for 5 minutes");
                     return View(login);
                 }
                 ModelState.AddModelError("", "Username or password incorrect");
@@ -210,7 +210,7 @@ namespace EduHome.App.Controllers
                 $" Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none;" +
                 $" border-radius: 6px;'>Click me for reset password</a>";
 
-            await _mailService.Send("pm4283719@gmail.com", user.Email, link, text, "Reset Password");
+            await _mailService.Send("sineraytd@code.edu.az", user.Email, link, text, "Reset Password");
 
             return RedirectToAction("Index", "home");
         }
