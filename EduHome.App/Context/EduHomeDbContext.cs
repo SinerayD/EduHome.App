@@ -9,6 +9,7 @@ namespace EduHomeApp.Context
     public class EduHomeDbContext : IdentityDbContext<AppUser> 
     { 
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Subscribe> Subscribes { get; set; }
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Position> Positions { get; set; }
