@@ -1,5 +1,4 @@
 ﻿@model Position
-
 <div class="container" style="margin-top:100px">
     <form method="post">
         <div class="form-group">
@@ -8,6 +7,6 @@
             <span class="text text-danger" asp-validation-for="@Model.Name"></span>
             @Html.AntiForgeryToken()
         </div>
-        <button type="submit">Create</button>
+        <button style="background-color:lightseagreen" type="submit">Create</button>
     </form>
 </div>

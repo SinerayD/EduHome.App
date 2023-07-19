@@ -28,6 +28,7 @@ namespace EduHomeApp.Context
         public DbSet<Setting> Settings { get; set; }
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<Notice> Notices { get; set; }
+        public DbSet<ContactMessage> ContactMessages { get; set; }  
         public EduHomeDbContext(DbContextOptions<EduHomeDbContext> options) : base(options)
         {
 

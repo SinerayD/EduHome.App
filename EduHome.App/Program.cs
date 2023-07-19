@@ -4,6 +4,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using EduHome.App.Services.Implementations;
 using EduHome.App.Services.Interfaces;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System;
+using EduHome.App.ServiceRegistrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,22 +21,16 @@ builder.Services.AddDbContext<EduHomeDbContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
 });
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<IMailService, MailService>();
-builder.Services.AddIdentity<AppUser, IdentityRole>()
-    .AddDefaultTokenProviders()
-    .AddEntityFrameworkStores<EduHomeDbContext>();
-builder.Services.Configure<IdentityOptions>(options =>
-{
-    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-    options.Lockout.MaxFailedAccessAttempts = 3;
-    options.Lockout.AllowedForNewUsers = true;
-    options.Password.RequireDigit = true;
-    options.Password.RequiredLength = 8;
-    options.User.RequireUniqueEmail = true;
-    options.SignIn.RequireConfirmedEmail = true;
-});
+builder.Services.Register(builder.Configuration);
 
 var app = builder.Build();
+
+// Seed Data
+using (var scope = app.Services.CreateScope())
+{
+    var serviceProvider = scope.ServiceProvider;
+    SeedData.Initialize(serviceProvider);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -62,3 +63,4 @@ app.UseEndpoints(endpoints =>
 });
 
 app.Run();
+

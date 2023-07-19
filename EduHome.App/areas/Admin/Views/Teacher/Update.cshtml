@@ -1,2 +1,12 @@
-﻿
-
+﻿@model Teacher
+<div class="container" style="margin-top:100px">
+    <form method="post">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" asp-for="@Model.FullName">
+            <span class="text text-danger" asp-validation-for="@Model.FullName"></span>
+            @Html.AntiForgeryToken()
+        </div>
+        <button type="submit">Update</button>
+    </form>
+</div>

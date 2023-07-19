@@ -9,5 +9,8 @@ namespace EduHome.App.ViewModel
         public IEnumerable<Course> Courses { get; set; }
         public IEnumerable<Blog> Blogs { get; set; }
         public IEnumerable<Category> Categories { get; set; }
+        public IEnumerable<Slider> Sliders { get; set; }
+        public IEnumerable<Notice> Notices { get; set; }
+        public Setting Settings { get; set; }
     }
 }

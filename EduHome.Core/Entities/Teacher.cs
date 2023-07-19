@@ -45,10 +45,11 @@ using EduHomeCore.Entities;
             public Position? Position { get; set; }
             public int DegreeId { get; set; }
             public Degree? Degree { get; set; }
-
             public List<Skill>? Skills { get; set; }
             public List<Social>? Socials { get; set; }
-            public List<TeacherHobby>? TeacherHobbies { get; set; }
+            [NotMapped]
+            public List<int>? HobbyIds { get; set; }
+           public List<TeacherHobby>? TeacherHobbies { get; set; }
 
             [NotMapped]
             public IFormFile? FormFile { get; set; }

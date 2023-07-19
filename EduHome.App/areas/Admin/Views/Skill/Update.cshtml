@@ -1,5 +1,4 @@
-﻿@model Position
-
+﻿@model Skill
 <div class="container" style="margin-top:100px">
     <form method="post">
         <div class="form-group">
@@ -8,6 +7,25 @@
             <span class="text text-danger" asp-validation-for="@Model.Name"></span>
             @Html.AntiForgeryToken()
         </div>
-        <button type="submit">Update</button>
+        <div class="form-group">
+            <label for="skillpercent">SkillPercent</label>
+            <input type="text" class="form-control" asp-for="@Model.SkillPercent">
+            <span class="text text-danger" asp-validation-for="@Model.SkillPercent"></span>
+            @Html.AntiForgeryToken()
+        </div>
+        <div class="form-group">
+            <select asp-for="TeacherId" class="form-select" aria-label="Disabled select example">
+                <option value="0">Choose Position</option>
+                @foreach (var item in ViewBag.Teacher)
+                {
+
+                    <option value="@item.Id">@item.Name</option>
+
+                }
+            </select>
+            <span class="text text-danger" asp-validation-for="TeacherId"></span>
+        </div>
+
+        <button style="background-color:lightseagreen" type="submit">Update</button>
     </form>
 </div>
