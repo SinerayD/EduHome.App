@@ -130,7 +130,7 @@ namespace EduHome.App.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Blogs");
+                    b.ToTable("Blogs", (string)null);
                 });
 
             modelBuilder.Entity("EduHome.Core.Entities.BlogCategory", b =>
@@ -162,7 +162,7 @@ namespace EduHome.App.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("BlogCategories");
+                    b.ToTable("BlogCategories", (string)null);
                 });
 
             modelBuilder.Entity("EduHome.Core.Entities.BlogTag", b =>
@@ -194,7 +194,7 @@ namespace EduHome.App.Migrations
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("BlogTag");
+                    b.ToTable("BlogTag", (string)null);
                 });
 
             modelBuilder.Entity("EduHome.Core.Entities.Course", b =>
@@ -273,7 +273,7 @@ namespace EduHome.App.Migrations
 
                     b.HasIndex("CourseLanguageId");
 
-                    b.ToTable("Courses");
+                    b.ToTable("Courses", (string)null);
                 });
 
             modelBuilder.Entity("EduHome.Core.Entities.CourseAssets", b =>
@@ -299,7 +299,7 @@ namespace EduHome.App.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CourseAssets");
+                    b.ToTable("CourseAssets", (string)null);
                 });
 
             modelBuilder.Entity("EduHome.Core.Entities.CourseCategory", b =>
@@ -331,7 +331,7 @@ namespace EduHome.App.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("CourseCategories");
+                    b.ToTable("CourseCategories", (string)null);
                 });
 
             modelBuilder.Entity("EduHome.Core.Entities.CourseLanguage", b =>
@@ -357,7 +357,7 @@ namespace EduHome.App.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CourseLanguages");
+                    b.ToTable("CourseLanguages", (string)null);
                 });
 
             modelBuilder.Entity("EduHome.Core.Entities.CourseTag", b =>
@@ -389,7 +389,7 @@ namespace EduHome.App.Migrations
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("CourseTags");
+                    b.ToTable("CourseTags", (string)null);
                 });
 
             modelBuilder.Entity("EduHome.Core.Entities.Degree", b =>
@@ -415,7 +415,7 @@ namespace EduHome.App.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Degrees");
+                    b.ToTable("Degrees", (string)null);
                 });
 
             modelBuilder.Entity("EduHome.Core.Entities.Hobby", b =>
@@ -441,7 +441,7 @@ namespace EduHome.App.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Hobbies");
+                    b.ToTable("Hobbies", (string)null);
                 });
 
             modelBuilder.Entity("EduHome.Core.Entities.Notice", b =>
@@ -467,7 +467,7 @@ namespace EduHome.App.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Notices");
+                    b.ToTable("Notices", (string)null);
                 });
 
             modelBuilder.Entity("EduHome.Core.Entities.Position", b =>
@@ -494,7 +494,7 @@ namespace EduHome.App.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Positions");
+                    b.ToTable("Positions", (string)null);
                 });
 
             modelBuilder.Entity("EduHome.Core.Entities.Setting", b =>
@@ -551,7 +551,7 @@ namespace EduHome.App.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Settings");
+                    b.ToTable("Settings", (string)null);
                 });
 
             modelBuilder.Entity("EduHome.Core.Entities.Skill", b =>
@@ -585,7 +585,7 @@ namespace EduHome.App.Migrations
 
                     b.HasIndex("TeacherId");
 
-                    b.ToTable("Skills");
+                    b.ToTable("Skills", (string)null);
                 });
 
             modelBuilder.Entity("EduHome.Core.Entities.Slider", b =>
@@ -626,7 +626,7 @@ namespace EduHome.App.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sliders");
+                    b.ToTable("Sliders", (string)null);
                 });
 
             modelBuilder.Entity("EduHome.Core.Entities.Social", b =>
@@ -662,7 +662,7 @@ namespace EduHome.App.Migrations
 
                     b.HasIndex("TeacherId");
 
-                    b.ToTable("Socials");
+                    b.ToTable("Socials", (string)null);
                 });
 
             modelBuilder.Entity("EduHome.Core.Entities.Subscribe", b =>
@@ -688,7 +688,7 @@ namespace EduHome.App.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Subscribes");
+                    b.ToTable("Subscribes", (string)null);
                 });
 
             modelBuilder.Entity("EduHome.Core.Entities.Tag", b =>
@@ -714,7 +714,7 @@ namespace EduHome.App.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags");
+                    b.ToTable("Tags", (string)null);
                 });
 
             modelBuilder.Entity("EduHome.Core.Entities.Teacher", b =>
@@ -785,7 +785,7 @@ namespace EduHome.App.Migrations
 
                     b.HasIndex("PositionId");
 
-                    b.ToTable("Teachers");
+                    b.ToTable("Teachers", (string)null);
                 });
 
             modelBuilder.Entity("EduHome.Core.Entities.TeacherHobby", b =>
@@ -817,7 +817,7 @@ namespace EduHome.App.Migrations
 
                     b.HasIndex("TeacherId");
 
-                    b.ToTable("TeacherHobbies");
+                    b.ToTable("TeacherHobbies", (string)null);
                 });
 
             modelBuilder.Entity("EduHomeCore.Entities.Category", b =>
@@ -843,7 +843,7 @@ namespace EduHome.App.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

@@ -58,10 +58,8 @@ namespace EduHome.Core.Entities
 
         public CourseLanguage? CourseLanguage { get; set; }
 
-        [NotMapped]
         public List<CourseCategory>? CourseCategories { get; set; }
 
-        [NotMapped]
         public List<CourseTag>? CourseTags { get; set; }
 
         [NotMapped]

@@ -1,4 +1,4 @@
-﻿
+﻿@model HomeViewModel
 <!-- Background Area Start -->
 <section id="slider-container" class="slider-area two">
     <div class="slider-owl owl-theme owl-carousel">
@@ -128,22 +128,22 @@
             </div>
         </div>
         <div class="row">
-            @foreach (var item in Model.Courses)
+            @foreach (var course in Model.Courses)
             {
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="single-course">
                         <div class="course-img">
                             <a href="~/assets/course-details.html">
-                                <img src="~/assets/img/course/@item.image" alt="course">
+                                <img src="~/assets/img/course/@course.Image" alt="course">
                                 <div class="course-hover">
                                     <i class="fa fa-link"></i>
                                 </div>
                             </a>
                         </div>
                         <div class="course-content">
-                            <h3><a href="~/assets/course-details.html">CSE ENGINEERING</a></h3>
-                            <p>I must explain to you how all this a mistaken idea of denouncing great explorer of the rut the is lder of human happiness</p>
-                            <a class="default-btn" href="~/assets/course-details.html">read more</a>
+                            <h3><a href="~/assets/course-details.html">@course.Name</a></h3>
+                            <p>@course.Description</p>
+                            <a class="default-btn" asp-controller="course" asp-action="detail" asp-route-id=@course.Id >read more</a>
                         </div>
                     </div>
                 </div>

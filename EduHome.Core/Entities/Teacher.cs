@@ -37,9 +37,6 @@ using EduHomeCore.Entities;
 
             public string Faculty { get; set; }
 
-            [Required(ErrorMessage = "Title is required")]
-            public string Title { get; set; }
-
             [Display(Name = "Position")]
             public int PositionId { get; set; }
             public Position? Position { get; set; }

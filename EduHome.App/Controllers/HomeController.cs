@@ -17,13 +17,8 @@ namespace Fiorello.App.areas.Admin.Controllers
         {
             HomeViewModel homeViewModel = new HomeViewModel
             {
-                Courses = await _context.Courses.Where(x => !x.IsDeleted)
-                    .Include(x => x.CourseCategories)
-                        .ThenInclude(cc => cc.Category) 
-                    .Include(x => x.CourseAssets)
-                    .Include(x => x.CourseTags)
-                    .Include(x => x.CourseLanguage)
-                    .ToListAsync(),
+                Courses = await _context.Courses.Where(x => !x.IsDeleted).ToListAsync(),
+                 
 
                 Categories = await _context.Categories.Where(x => !x.IsDeleted).ToListAsync(),
 

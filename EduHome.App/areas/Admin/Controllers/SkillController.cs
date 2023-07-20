@@ -44,14 +44,13 @@ namespace Fir.App.Areas.Admin.Controllers
             skill.CreatedDate = DateTime.Now;
             await _context.Skills.AddAsync(skill);
             await _context.SaveChangesAsync();
-
             return RedirectToAction("Index");
         }
 
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            Skill skill = await _context.Skills
+            Skill? skill = await _context.Skills
                 .Where(x => !x.IsDeleted && x.Id == id)
                 .FirstOrDefaultAsync();
 

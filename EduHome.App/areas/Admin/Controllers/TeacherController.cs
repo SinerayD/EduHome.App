@@ -76,7 +76,7 @@ namespace EduHomeApp.Areas.Admin.Controllers
             }
 
 
-            teacher.Image = teacher.FormFile.CreateImage(_env.WebRootPath, "assets/images");
+            teacher.Image = teacher.FormFile.CreateImage(_env.WebRootPath, "assets/img");
 
             _context.Teachers.Add(teacher);
             await _context.SaveChangesAsync();
@@ -93,7 +93,7 @@ namespace EduHomeApp.Areas.Admin.Controllers
             ViewBag.Skills = await _context.Skills.Where(x => !x.IsDeleted).ToListAsync();
             ViewBag.Socials = await _context.Socials.Where(x => !x.IsDeleted).ToListAsync();
 
-            Teacher teacher = await _context.Teachers
+            Teacher? teacher = await _context.Teachers
                 .Include(t => t.Position)
                 .Include(t => t.TeacherHobbies)
                 .ThenInclude(th => th.Hobby)
@@ -118,7 +118,7 @@ namespace EduHomeApp.Areas.Admin.Controllers
             ViewBag.Skills = await _context.Skills.Where(x => !x.IsDeleted).ToListAsync();
             ViewBag.Socials = await _context.Socials.Where(x => !x.IsDeleted).ToListAsync();
 
-            Teacher existingTeacher = await _context.Teachers
+            Teacher? existingTeacher = await _context.Teachers
                 .Include(t => t.Position)
                 .Include(t => t.TeacherHobbies)
                 .ThenInclude(th => th.Hobby)
@@ -150,7 +150,7 @@ namespace EduHomeApp.Areas.Admin.Controllers
                     return View(existingTeacher);
                 }
 
-                existingTeacher.Image = teacher.FormFile.CreateImage(_env.WebRootPath, "assets/images");
+                existingTeacher.Image = teacher.FormFile.CreateImage(_env.WebRootPath, "assets/img");
             }
 
 

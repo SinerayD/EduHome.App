@@ -5,8 +5,8 @@ namespace EduHome.App.ViewModel
 {
     public class HomeViewModel
     {
-        public IEnumerable<Teacher> Teachers { get; set; }
-        public IEnumerable<Course> Courses { get; set; }
+        public List<Teacher> Teachers { get; set; }
+        public List<Course> Courses { get; set; }
         public IEnumerable<Blog> Blogs { get; set; }
         public IEnumerable<Category> Categories { get; set; }
         public IEnumerable<Slider> Sliders { get; set; }

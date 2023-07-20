@@ -1,6 +1,6 @@
 ﻿@model Skill
 <div class="container" style="margin-top:100px">
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" class="form-control" asp-for="@Model.Name">
@@ -8,25 +8,27 @@
             @Html.AntiForgeryToken()
         </div>
         <div class="form-group">
-            <label for="skillpercent">SkillPercent</label>
+            <label for="skillpercent">Skill Percent</label>
             <input type="text" class="form-control" asp-for="@Model.SkillPercent">
             <span class="text text-danger" asp-validation-for="@Model.SkillPercent"></span>
             @Html.AntiForgeryToken()
         </div>
         <div class="form-group">
+            <label for="skillpercent">Teachers</label>
             <select asp-for="TeacherId" class="form-select" aria-label="Disabled select example">
-                <option value="0">Choose Position</option>
-                @foreach (var item in ViewBag.Teacher)
+                <option value="0">Choose Teacher</option>
+                @foreach (var item in ViewBag.Teachers)
                 {
 
-                    <option value="@item.Id">@item.Name</option>
+                    <option value="@item.Id">@item.FullName</option>
 
                 }
             </select>
             <span class="text text-danger" asp-validation-for="TeacherId"></span>
         </div>
+        @Html.AntiForgeryToken()
 
-        <button style="background-color:lightseagreen" type="submit">Create</button>
+        <button style="background-color: #4CAF50; border: none;border-radius:10px;color: white;padding: 16px 32px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;margin: 4px 2px;transition-duration: 0.4s;cursor: pointer;margin-top:20px" type="submit">Create</button>
     </form>
 </div>
 
