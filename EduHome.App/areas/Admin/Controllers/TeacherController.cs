@@ -76,7 +76,7 @@ namespace EduHomeApp.Areas.Admin.Controllers
             }
 
 
-            teacher.Image = teacher.FormFile.CreateImage(_env.WebRootPath, "assets/img");
+            teacher.Image = teacher.FormFile.CreateImage(_env.WebRootPath, "/assets/img/teacher");
 
             _context.Teachers.Add(teacher);
             await _context.SaveChangesAsync();
@@ -150,7 +150,7 @@ namespace EduHomeApp.Areas.Admin.Controllers
                     return View(existingTeacher);
                 }
 
-                existingTeacher.Image = teacher.FormFile.CreateImage(_env.WebRootPath, "assets/img");
+                existingTeacher.Image = teacher.FormFile.CreateImage(_env.WebRootPath, "/assets/img/teacher");
             }
 
 
@@ -166,18 +166,16 @@ namespace EduHomeApp.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
             Teacher? teacher = await _context.Teachers.FindAsync(id);
             if (teacher == null)
+            {
                 return NotFound();
+            }
 
             _context.Teachers.Remove(teacher);
             await _context.SaveChangesAsync();
-
             return RedirectToAction(nameof(Index));
         }
     }

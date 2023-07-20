@@ -77,7 +77,7 @@ namespace EduHome.App.areas.Admin.Controllers
                     return View(course);
                 }
 
-                course.Image = course.FormFile.CreateImage(_environment.WebRootPath, "assets/images");
+                course.Image = course.FormFile.CreateImage(_environment.WebRootPath, "assets/img/course");
 
                 course.CreatedDate = DateTime.Now;
                 course.CourseCategories = GetSelectedCategories(course.CategoryIds);
@@ -158,7 +158,7 @@ namespace EduHome.App.areas.Admin.Controllers
                         return View(updatedCourse);
                     }
 
-                    updatedCourse.Image = course.FormFile.CreateImage(_environment.WebRootPath, "assets/images");
+                    updatedCourse.Image = course.FormFile.CreateImage(_environment.WebRootPath, "assets/img/course");
                 }
 
                 updatedCourse.UpdatedDate = DateTime.Now;

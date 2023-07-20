@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 namespace EduHome.App.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class CourseAssetsController : Controller
+    public class AssetsController : Controller
     {
         private readonly EduHomeDbContext _context;
 
-        public CourseAssetsController(EduHomeDbContext context)
+        public AssetsController(EduHomeDbContext context)
         {
             _context = context;
         }

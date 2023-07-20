@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Fir.App.Areas.Admin.Controllers
+namespace EduHome.App.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class CourseLanguageController : Controller

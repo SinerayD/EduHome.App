@@ -25,12 +25,14 @@ namespace Fiorello.App.Controllers
             {
                 teachers = await _context.Teachers
                     .Where(x => !x.IsDeleted)
+                    .Include(x => x.Position)
                     .ToListAsync();
             }
             else
             {
                 teachers = await _context.Teachers
                     .Where(x => !x.IsDeleted)
+                    .Include(x => x.Position)
                     .ToListAsync();
             }
 
