@@ -34,8 +34,7 @@ namespace EduHome.Core.Entities
         public string SkillLevel { get; set; }
 
         [Required(ErrorMessage = "Student Count is required")]
-        public int StudentCount { get; set; }
-        public string Assessment { get; set; }  
+        public int StudentCount { get; set; } 
 
         [Required(ErrorMessage = "Course Fee is required")]
         public double CourseFee { get; set; }
