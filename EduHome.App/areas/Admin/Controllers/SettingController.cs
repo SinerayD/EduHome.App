@@ -4,6 +4,7 @@ using EduHome.Core.Entities;
 using EduHomeApp.Context;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.DependencyResolver;
 
 namespace EduHome.App.Areas.Admin.Controllers
 {
@@ -57,7 +58,7 @@ namespace EduHome.App.Areas.Admin.Controllers
                 return View(setting);
             }
 
-            setting.AboutImage= setting.FormFile.CreateImage(_environment.WebRootPath, "assets/images");
+            setting.AboutImage= setting.FormFile.CreateImage(_environment.WebRootPath, "assets/img/logo/");
             setting.CreatedDate = DateTime.Now;
             await _context.Settings.AddAsync(setting);
             await _context.SaveChangesAsync();

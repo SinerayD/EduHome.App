@@ -76,7 +76,7 @@ namespace EduHomeApp.Areas.Admin.Controllers
             }
 
 
-            teacher.Image = teacher.FormFile.CreateImage(_env.WebRootPath, "/assets/img/teacher");
+            teacher.Image = teacher.FormFile.CreateImage(_env.WebRootPath, "assets/img/teacher");
 
             _context.Teachers.Add(teacher);
             await _context.SaveChangesAsync();
@@ -150,7 +150,7 @@ namespace EduHomeApp.Areas.Admin.Controllers
                     return View(existingTeacher);
                 }
 
-                existingTeacher.Image = teacher.FormFile.CreateImage(_env.WebRootPath, "/assets/img/teacher");
+                existingTeacher.Image = teacher.FormFile.CreateImage(_env.WebRootPath, "assets/img/teacher");
             }
 
 
