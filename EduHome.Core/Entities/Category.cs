@@ -12,6 +12,7 @@ namespace EduHomeCore.Entities
     {
         [Required]
         public string? Name { get; set; }
-        public List<CourseCategory>? CourseCategories { get; set; } 
+        public List<CourseCategory>? CourseCategories { get; set; }
+        public List<BlogCategory>? BlogCategories { get; set; }
     }
 }

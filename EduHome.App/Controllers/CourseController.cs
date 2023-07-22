@@ -62,7 +62,6 @@ namespace EduHome.App.Controllers
 
             Course? course = await _context.Courses
                 .Where(x => !x.IsDeleted && x.Id == id)
-                .Include(x => x.CourseAssets)
                 .Include(x => x.CourseCategories)
                 .ThenInclude(x => x.Category)
                 .Include(x => x.CourseTags)

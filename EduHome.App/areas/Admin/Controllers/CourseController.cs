@@ -23,7 +23,6 @@ namespace EduHome.App.areas.Admin.Controllers
             {
                 IEnumerable<Course> courses = await _context.Courses
                     .Include(c => c.CourseLanguage)
-                    .Include(c => c.CourseAssets)
                     .Include(c => c.CourseCategories)
                     .ThenInclude(cc => cc.Category)
                     .Include(c => c.CourseTags)
@@ -38,7 +37,6 @@ namespace EduHome.App.areas.Admin.Controllers
             public IActionResult Create()
             {
                 ViewBag.CourseLanguages = _context.CourseLanguages.Where(cl => !cl.IsDeleted).ToList();
-                ViewBag.CourseAssets = _context.CourseAssets.Where(ca => !ca.IsDeleted).ToList();
                 ViewBag.Categories = _context.Categories.Where(cat => !cat.IsDeleted).ToList();
                 ViewBag.Tags = _context.Tags.Where(tag => !tag.IsDeleted).ToList();
 
@@ -50,7 +48,6 @@ namespace EduHome.App.areas.Admin.Controllers
             public async Task<IActionResult> Create(Course course)
             {
                 ViewBag.CourseLanguages = _context.CourseLanguages.Where(cl => !cl.IsDeleted).ToList();
-                ViewBag.CourseAssets = _context.CourseAssets.Where(ca => !ca.IsDeleted).ToList();
                 ViewBag.Categories = _context.Categories.Where(cat => !cat.IsDeleted).ToList();
                 ViewBag.Tags = _context.Tags.Where(tag => !tag.IsDeleted).ToList();
 
@@ -95,7 +92,6 @@ namespace EduHome.App.areas.Admin.Controllers
                 Course? course = await _context.Courses
                     .Where(c => !c.IsDeleted && c.Id == id)
                     .Include(c => c.CourseLanguage)
-                    .Include(c => c.CourseAssets)
                     .Include(c => c.CourseCategories)
                     .ThenInclude(cc => cc.Category)
                     .Include(c => c.CourseTags)
@@ -108,7 +104,6 @@ namespace EduHome.App.areas.Admin.Controllers
                 }
 
                 ViewBag.CourseLanguages = _context.CourseLanguages.Where(cl => !cl.IsDeleted).ToList();
-                ViewBag.CourseAssets = _context.CourseAssets.Where(ca => !ca.IsDeleted).ToList();
                 ViewBag.Categories = _context.Categories.Where(cat => !cat.IsDeleted).ToList();
                 ViewBag.Tags = _context.Tags.Where(tag => !tag.IsDeleted).ToList();
 
@@ -122,7 +117,6 @@ namespace EduHome.App.areas.Admin.Controllers
                 Course? updatedCourse = await _context.Courses
                     .Where(c => !c.IsDeleted && c.Id == id)
                     .Include(c => c.CourseLanguage)
-                    .Include(c => c.CourseAssets)
                     .Include(c => c.CourseCategories)
                     .ThenInclude(cc => cc.Category)
                     .Include(c => c.CourseTags)
@@ -135,7 +129,6 @@ namespace EduHome.App.areas.Admin.Controllers
                 }
 
                 ViewBag.CourseLanguages = _context.CourseLanguages.Where(cl => !cl.IsDeleted).ToList();
-                ViewBag.CourseAssets = _context.CourseAssets.Where(ca => !ca.IsDeleted).ToList();
                 ViewBag.Categories = _context.Categories.Where(cat => !cat.IsDeleted).ToList();
                 ViewBag.Tags = _context.Tags.Where(tag => !tag.IsDeleted).ToList();
 
@@ -174,7 +167,6 @@ namespace EduHome.App.areas.Admin.Controllers
                 updatedCourse.StudentCount = course.StudentCount;
                 updatedCourse.CourseFee = course.CourseFee;
                 updatedCourse.CourseLanguageId = course.CourseLanguageId;
-                updatedCourse.CourseAssetsId = course.CourseAssetsId;
                 updatedCourse.CourseCategories = GetSelectedCategories(course.CategoryIds);
                 updatedCourse.CourseTags = GetSelectedTags(course.TagIds);
 

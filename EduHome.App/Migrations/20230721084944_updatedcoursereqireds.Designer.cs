@@ -4,6 +4,7 @@ using EduHomeApp.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EduHome.App.Migrations
 {
     [DbContext(typeof(EduHomeDbContext))]
-    partial class EduHomeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230721084944_updatedcoursereqireds")]
+    partial class updatedcoursereqireds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -194,7 +196,7 @@ namespace EduHome.App.Migrations
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("BlogTags");
+                    b.ToTable("BlogTag");
                 });
 
             modelBuilder.Entity("EduHome.Core.Entities.ContactMessage", b =>
@@ -332,7 +334,7 @@ namespace EduHome.App.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CourseAssetss");
+                    b.ToTable("CourseAssets");
                 });
 
             modelBuilder.Entity("EduHome.Core.Entities.CourseCategory", b =>
@@ -633,6 +635,7 @@ namespace EduHome.App.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Image")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
@@ -1010,13 +1013,13 @@ namespace EduHome.App.Migrations
             modelBuilder.Entity("EduHome.Core.Entities.BlogCategory", b =>
                 {
                     b.HasOne("EduHome.Core.Entities.Blog", "Blog")
-                        .WithMany("BlogCategories")
+                        .WithMany()
                         .HasForeignKey("BlogId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("EduHomeCore.Entities.Category", "Category")
-                        .WithMany("BlogCategories")
+                        .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1029,7 +1032,7 @@ namespace EduHome.App.Migrations
             modelBuilder.Entity("EduHome.Core.Entities.BlogTag", b =>
                 {
                     b.HasOne("EduHome.Core.Entities.Blog", "Blog")
-                        .WithMany("BlogTags")
+                        .WithMany()
                         .HasForeignKey("BlogId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1047,7 +1050,7 @@ namespace EduHome.App.Migrations
 
             modelBuilder.Entity("EduHome.Core.Entities.Course", b =>
                 {
-                    b.HasOne("EduHome.Core.Entities.CourseAssets", null)
+                    b.HasOne("EduHome.Core.Entities.CourseAssets", "CourseAssets")
                         .WithMany("Courses")
                         .HasForeignKey("CourseAssetsId");
 
@@ -1056,6 +1059,8 @@ namespace EduHome.App.Migrations
                         .HasForeignKey("CourseLanguageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("CourseAssets");
 
                     b.Navigation("CourseLanguage");
                 });
@@ -1213,13 +1218,6 @@ namespace EduHome.App.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("EduHome.Core.Entities.Blog", b =>
-                {
-                    b.Navigation("BlogCategories");
-
-                    b.Navigation("BlogTags");
-                });
-
             modelBuilder.Entity("EduHome.Core.Entities.Course", b =>
                 {
                     b.Navigation("CourseCategories");
@@ -1270,8 +1268,6 @@ namespace EduHome.App.Migrations
 
             modelBuilder.Entity("EduHomeCore.Entities.Category", b =>
                 {
-                    b.Navigation("BlogCategories");
-
                     b.Navigation("CourseCategories");
                 });
 #pragma warning restore 612, 618

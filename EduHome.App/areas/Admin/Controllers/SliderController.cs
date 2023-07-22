@@ -59,7 +59,7 @@ namespace EduHome.App.Areas.Admin.Controllers
                 return View(slider);
             }
 
-            slider.Image = slider.FormFile.CreateImage(_environment.WebRootPath, "assets/images");
+            slider.Image = slider.FormFile.CreateImage(_environment.WebRootPath, "assets/img/slider");
             slider.CreatedDate = DateTime.Now;
             await _context.Sliders.AddAsync(slider);
             await _context.SaveChangesAsync();
@@ -116,7 +116,7 @@ namespace EduHome.App.Areas.Admin.Controllers
             existingSlider.Title = slider.Title;
             existingSlider.Text = slider.Text;
             existingSlider.Link = slider.Link;
-            existingSlider.Image = slider.FormFile.CreateImage(_environment.WebRootPath, "assets/images");
+            existingSlider.Image = slider.FormFile.CreateImage(_environment.WebRootPath, "assets/img/slider");
             _context.Sliders.Update(existingSlider);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

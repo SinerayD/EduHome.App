@@ -10,8 +10,8 @@ namespace EduHome.Core.Entities
 {
     public class Slider : BaseModel
     {
-        [Required(ErrorMessage = "Image is required")]
-        public string Image { get; set; }
+       
+        public string? Image { get; set; }
 
         [Required(ErrorMessage = "Title is required")]
         public string Title { get; set; }
@@ -24,6 +24,6 @@ namespace EduHome.Core.Entities
         public bool IsActive { get; set; }
 
         [NotMapped]
-        public IFormFile FormFile { get; set; }
+        public IFormFile? FormFile { get; set; }
     }
 }

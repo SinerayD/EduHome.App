@@ -1,205 +1,212 @@
-﻿using EduHome.App.Extensions;
-using EduHome.App.Helpers;
+﻿using Microsoft.AspNetCore.Mvc;
 using EduHome.Core.Entities;
-using EduHomeApp.Context;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using EduHome.App.Helpers;
+using EduHomeApp.Context;
+using EduHome.App.Extensions;
 
-namespace EduHome.App.areas.Admin.Controllers
-{ 
-    [Area("Admin")]
-     public class BlogController : Controller
+namespace EduHome.App.Areas.Admin.Controllers
 {
-    private readonly EduHomeDbContext _context;
-    private readonly IWebHostEnvironment _environment;
-
-    public BlogController(EduHomeDbContext context, IWebHostEnvironment environment)
+    [Area("Admin")]
+    public class BlogController : Controller
     {
-        _context = context;
-        _environment = environment;
-    }
+        private readonly EduHomeDbContext _context;
+        private readonly IWebHostEnvironment _env;
 
-    public async Task<IActionResult> Index()
-    {
-        IEnumerable<Blog> blogs = await _context.Blogs
-            .Include(b => b.BlogCategories)
-            .ThenInclude(bc => bc.Category)
-            .Include(b => b.BlogTags)
-            .ThenInclude(bt => bt.Tag)
-            .Where(b => !b.IsDeleted)
-            .ToListAsync();
-
-        return View(blogs);
-    }
-
-    [HttpGet]
-    public async Task<IActionResult> Create()
-     {
-        ViewBag.Categories =await _context.Categories.Where(c => !c.IsDeleted).ToListAsync();
-        ViewBag.Tags = await _context.Tags.Where(t => !t.IsDeleted).ToListAsync();
-
-        return View();
-     }
-
-     [HttpPost]
-     [ValidateAntiForgeryToken]
-     public async Task<IActionResult> Create(Blog blog)
-     {
-        ViewBag.Categories = _context.Categories.Where(c => !c.IsDeleted).ToListAsync();
-        ViewBag.Tags = _context.Tags.Where(t => !t.IsDeleted).ToListAsync();
-
-        if (!ModelState.IsValid)
+        public BlogController(EduHomeDbContext context, IWebHostEnvironment env)
         {
+            _context = context;
+            _env = env;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            IEnumerable<Blog> blogs = await _context.Blogs.Where(x => !x.IsDeleted)
+                .ToListAsync();
+            return View(blogs);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            ViewBag.Categories = await _context.Categories.Where(x => !x.IsDeleted).ToListAsync();
+            ViewBag.Tags = await _context.Tags.Where(x => !x.IsDeleted).ToListAsync();
             return View();
         }
 
-        if (blog.FormFile is null || blog.FormFile.Length == 0)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Blog blog)
         {
-            ModelState.AddModelError("", "Image must be added!");
-            return View(blog);
-        }
+            ViewBag.Categories = await _context.Categories.Where(x => !x.IsDeleted).ToListAsync();
+            ViewBag.Tags = await _context.Tags.Where(x => !x.IsDeleted).ToListAsync();
 
-        if (!Helper.IsImage(blog.FormFile))
-        {
-            ModelState.AddModelError("", "The format of the file is not an image!");
-            return View(blog);
-        }
-
-        if (!Helper.IsSizeOk(blog.FormFile, 1))
-        {
-            ModelState.AddModelError("", "The size of the image must be less than 1MB!");
-            return View(blog);
-        }
-
-        blog.Image = blog.FormFile.CreateImage(_environment.WebRootPath, "assets/images");
-
-        blog.CreatedDate = DateTime.Now;
-        blog.BlogCategories = GetSelectedCategories(blog.CategoryIds);
-        blog.BlogTags = GetSelectedTags(blog.TagIds);
-        await _context.Blogs.AddAsync(blog);
-        await _context.SaveChangesAsync();
-        return RedirectToAction(nameof(Index));
-     }
-
-    [HttpGet]
-    public async Task<IActionResult> Update(int id)
-    {
-        Blog? blog = await _context.Blogs
-            .Where(b => !b.IsDeleted && b.Id == id)
-            .Include(b => b.BlogCategories)
-            .ThenInclude(bc => bc.Category)
-            .Include(b => b.BlogTags)
-            .ThenInclude(bt => bt.Tag)
-            .FirstOrDefaultAsync();
-
-        if (blog is null)
-        {
-            return NotFound();
-        }
-
-        ViewBag.Categories = _context.Categories.Where(c => !c.IsDeleted).ToList();
-        ViewBag.Tags = _context.Tags.Where(t => !t.IsDeleted).ToList();
-
-        return View(blog);
-    }
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Update(int id, Blog blog)
-    {
-        Blog? updatedBlog = await _context.Blogs
-            .Where(b => !b.IsDeleted && b.Id == id)
-            .Include(b => b.BlogCategories)
-            .ThenInclude(bc => bc.Category)
-            .Include(b => b.BlogTags)
-            .ThenInclude(bt => bt.Tag)
-            .FirstOrDefaultAsync();
-
-        if (updatedBlog is null)
-        {
-            return NotFound();
-        }
-
-        ViewBag.Categories = _context.Categories.Where(c => !c.IsDeleted).ToList();
-        ViewBag.Tags = _context.Tags.Where(t => !t.IsDeleted).ToList();
-
-        if (!ModelState.IsValid)
-        {
-            return View(updatedBlog);
-        }
-
-        if (blog.FormFile is not null && blog.FormFile.Length > 0)
-        {
+            if (!ModelState.IsValid)
+            {
+                return View(blog);
+            }
+            if (blog.FormFile is null)
+            {
+                ModelState.AddModelError("file", "Image can not be empty");
+                return View(blog);
+            }
             if (!Helper.IsImage(blog.FormFile))
             {
-                ModelState.AddModelError("", "The format of the file is not an image!");
-                return View(updatedBlog);
+                ModelState.AddModelError("file", "File must be image");
+                return View(blog);
             }
-
-            if (!Helper.IsSizeOk(blog.FormFile, 1))
+            if (!Helper.IsSizeOk(blog.FormFile, 2))
             {
-                ModelState.AddModelError("", "The size of the image must be less than 1MB!");
-                return View(updatedBlog);
+                ModelState.AddModelError("file", "Size of Image must less than 2 mb");
+                return View(blog);
             }
-
-            updatedBlog.Image = blog.FormFile.CreateImage(_environment.WebRootPath, "assets/images");
+            foreach (var item in blog.CategoryIds)
+            {
+                if (!await _context.Categories.AnyAsync(x => x.Id == item))
+                {
+                    ModelState.AddModelError("", "Invalid Category Id");
+                    return View(blog);
+                }
+                BlogCategory blogCategory = new BlogCategory
+                {
+                    CreatedDate = DateTime.Now,
+                    Blog = blog,
+                    CategoryId = item
+                };
+                await _context.BlogCategories.AddAsync(blogCategory);
+            }
+            foreach (var item in blog.TagIds)
+            {
+                if (!await _context.Tags.AnyAsync(x => x.Id == item))
+                {
+                    ModelState.AddModelError("", "Invalid Tag Id");
+                    return View(blog);
+                }
+                BlogTag blogTag = new BlogTag
+                {
+                    CreatedDate = DateTime.Now,
+                    Blog = blog,
+                    TagId = item
+                };
+                await _context.BlogTags.AddAsync(blogTag);
+            }
+            blog.Image = blog.FormFile.CreateImage(_env.WebRootPath, "assets/img/blog/");
+            blog.CreatedDate = DateTime.Now;
+            await _context.AddAsync(blog);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
-        updatedBlog.UpdatedDate = DateTime.Now;
-        updatedBlog.Title = blog.Title;
-        updatedBlog.Description = blog.Description;
-        updatedBlog.Author = blog.Author;
-        updatedBlog.BlogCategories = GetSelectedCategories(blog.CategoryIds);
-        updatedBlog.BlogTags = GetSelectedTags(blog.TagIds);
-
-        _context.Blogs.Update(updatedBlog);
-        await _context.SaveChangesAsync();
-
-        return RedirectToAction(nameof(Index));
-    }
-
-    [HttpGet]
-    public async Task<IActionResult> Delete(int id)
-    {
-        Blog? blog = await _context.Blogs
-            .Where(b => !b.IsDeleted && b.Id == id)
-            .FirstOrDefaultAsync();
-
-        if (blog is null)
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
         {
-            return NotFound();
+            ViewBag.Categories = await _context.Categories.Where(x => !x.IsDeleted).ToListAsync();
+            ViewBag.Tags = await _context.Tags.Where(x => !x.IsDeleted).ToListAsync();
+
+            Blog? blog = await _context.Blogs.Where(x => !x.IsDeleted && x.Id == id)
+                .AsNoTracking()
+                .Include(x => x.BlogCategories).ThenInclude(x => x.Category)
+                .Include(x => x.BlogTags).ThenInclude(x => x.Tag)
+                .FirstOrDefaultAsync();
+            if (blog == null)
+            {
+                return NotFound();
+            }
+            return View(blog);
         }
 
-        blog.IsDeleted = true;
-        await _context.SaveChangesAsync();
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(int id, Blog blog)
+        {
+            Blog? updatedblog = await _context.Blogs.Where(x => !x.IsDeleted && x.Id == id)
+                             .AsNoTracking()
+                            .Include(x => x.BlogCategories).ThenInclude(x => x.Category)
+                            .Include(x => x.BlogTags).ThenInclude(x => x.Tag)
+                            .FirstOrDefaultAsync();
 
-        return RedirectToAction(nameof(Index));
-    }
-
-    private List<BlogCategory> GetSelectedCategories(List<int> categoryIds)
-    {
-        return _context.Categories
-            .Where(c => categoryIds.Contains(c.Id) && !c.IsDeleted)
-            .Select(c => new BlogCategory
+            if (blog is null)
             {
-                CategoryId = c.Id,
-                CreatedDate = DateTime.Now
-            })
-            .ToList();
-    }
-
-    private List<BlogTag> GetSelectedTags(List<int> tagIds)
-    {
-        return _context.Tags
-            .Where(t => tagIds.Contains(t.Id) && !t.IsDeleted)
-            .Select(t => new BlogTag
+                return View(blog);
+            }
+            if (!ModelState.IsValid)
             {
-                TagId = t.Id,
-                CreatedDate = DateTime.Now
-            })
-            .ToList();
+                return View(updatedblog);
+            }
+
+            if (blog.FormFile != null)
+            {
+                if (!Helper.IsImage(blog.FormFile))
+                {
+                    ModelState.AddModelError("file", "File must be image");
+                    return View(blog);
+                }
+                if (!Helper.IsSizeOk(blog.FormFile, 2))
+                {
+                    ModelState.AddModelError("file", "Size of Image must less than 2 mb");
+                    return View(blog);
+                }
+                Helper.RemoveImage(_env.WebRootPath, "assets/img/blog/", updatedblog.Image);
+                blog.Image = blog.FormFile.CreateImage(_env.WebRootPath, "assets/img/blog/");
+            }
+            else
+            {
+                blog.Image = updatedblog.Image;
+            }
+
+            List<BlogCategory> RemoveableCategory = await _context.BlogCategories.
+              Where(x => !blog.CategoryIds.Contains(x.CategoryId)).ToListAsync();
+
+            _context.BlogCategories.RemoveRange(RemoveableCategory);
+            foreach (var item in blog.CategoryIds)
+            {
+                if (_context.BlogCategories.Where(x => x.BlogId == id && x.CategoryId == item).Count() > 0)
+                    continue;
+
+                await _context.BlogCategories.AddAsync(new BlogCategory
+                {
+                    BlogId = id,
+                    CategoryId = item
+                });
+            }
+            List<BlogTag> RemoveableTag = await _context.BlogTags.
+            Where(x => !blog.TagIds.Contains(x.TagId)).ToListAsync();
+            _context.BlogTags.RemoveRange(RemoveableTag);
+
+            foreach (var item in blog.TagIds)
+            {
+                if (_context.BlogTags.Where(x => x.BlogId == id && x.TagId == item).Count() > 0)
+                    continue;
+
+                await _context.BlogTags.AddAsync(new BlogTag
+                {
+                    BlogId = id,
+                    TagId = item
+                });
+            }
+            updatedblog.UpdatedDate = DateTime.Now;
+            updatedblog.Author = blog.Author;
+            updatedblog.Description = blog.Description;
+            updatedblog.Title = blog.Title;
+            updatedblog.Image = blog.Image;
+
+            _context.Blogs.Update(blog);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            Blog? blog = await _context.Blogs.Where(x => !x.IsDeleted && x.Id == id).FirstOrDefaultAsync();
+            if (blog == null)
+            {
+                return NotFound();
+            }
+
+            blog.IsDeleted = true;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }
-
-}
-

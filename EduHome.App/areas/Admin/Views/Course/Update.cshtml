@@ -111,25 +111,6 @@
 			<span asp-validation-for="CourseLanguageId" class="text text-danger"></span>
 		</div>
 		<div class="form-group">
-			<label asp-for="CourseAssetsId">Assests</label>
-			<select asp-for="CourseAssetsId" class="form-select" aria-label="Default select example">
-				<option value="0">Choose one of them</option>
-				@foreach (var item in ViewBag.CourseAssests)
-				{
-					if (Model.CourseAssetsId != null)
-					{
-						if (Model.CourseAssetsId == item.Id)
-						{
-							<option selected value="@item.Id">@item.Name</option>
-							continue;
-						}
-					}
-					<option value="@item.Id">@item.Name</option>
-				}
-			</select>
-			<span asp-validation-for="CourseAssetsId" class="text text-danger"></span>
-		</div>
-		<div class="form-group">
 			<label asp-for="@Model.FormFile">File:</label>
 			<input type="file" class="form-control" asp-for="@Model.FormFile" />
 			<span asp-validation-for="FormFile" class="text text-danger"></span>

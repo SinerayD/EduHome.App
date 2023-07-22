@@ -2,22 +2,26 @@
 using EduHomeApp.Context;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace EduHome.App.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class AssetsController : Controller
+    public class CourseAssetController : Controller
     {
         private readonly EduHomeDbContext _context;
 
-        public AssetsController(EduHomeDbContext context)
+        public CourseAssetController(EduHomeDbContext context)
         {
             _context = context;
         }
 
         public async Task<IActionResult> Index()
         {
-            IEnumerable<CourseAssets> courseAssets = await _context.CourseAssets
+            IEnumerable<CourseAssets> courseAssets = await _context.CourseAssetss
                 .Where(c => !c.IsDeleted)
                 .ToListAsync();
 
@@ -32,15 +36,14 @@ namespace EduHome.App.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CourseAssets courseAssets)
+        public async Task<IActionResult> Create(CourseAssets courseAsset)
         {
             if (!ModelState.IsValid)
             {
                 return View();
             }
 
-            courseAssets.CreatedDate = DateTime.Now;
-            await _context.CourseAssets.AddAsync(courseAssets);
+            _context.CourseAssetss.Add(courseAsset);
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
@@ -49,61 +52,60 @@ namespace EduHome.App.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            CourseAssets? courseAssets = await _context.CourseAssets
+            CourseAssets? courseAsset = await _context.CourseAssetss
                 .Where(c => !c.IsDeleted && c.Id == id)
                 .FirstOrDefaultAsync();
 
-            if (courseAssets == null)
+            if (courseAsset == null)
             {
                 return NotFound();
             }
 
-            return View(courseAssets);
+            return View(courseAsset);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(int id, CourseAssets courseAssets)
+        public async Task<IActionResult> Update(int id, CourseAssets courseAsset)
         {
-            CourseAssets? updatedCourseAssets = await _context.CourseAssets
+            CourseAssets? updatedCourseAsset = await _context.CourseAssetss
                 .Where(c => !c.IsDeleted && c.Id == id)
                 .FirstOrDefaultAsync();
 
-            if (updatedCourseAssets == null)
+            if (updatedCourseAsset == null)
             {
                 return NotFound();
             }
 
             if (!ModelState.IsValid)
             {
-                return View(updatedCourseAssets);
+                return View(updatedCourseAsset);
             }
 
-            updatedCourseAssets.UpdatedDate = DateTime.Now;
-            updatedCourseAssets.Name = courseAssets.Name;
+            updatedCourseAsset.Name = courseAsset.Name;
+            updatedCourseAsset.UpdatedDate = DateTime.Now;
+
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            CourseAssets? courseAssets = await _context.CourseAssets
+            CourseAssets? courseAsset = await _context.CourseAssetss
                 .Where(c => !c.IsDeleted && c.Id == id)
                 .FirstOrDefaultAsync();
 
-            if (courseAssets == null)
+            if (courseAsset == null)
             {
                 return NotFound();
             }
 
-            courseAssets.IsDeleted = true;
-
+            courseAsset.IsDeleted = true;
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
         }
     }
-
 }
-

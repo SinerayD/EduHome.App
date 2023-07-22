@@ -39,6 +39,7 @@ using EduHomeCore.Entities;
 
             [Display(Name = "Position")]
             public int PositionId { get; set; }
+
             public Position? Position { get; set; }
             public int DegreeId { get; set; }
             public Degree? Degree { get; set; }

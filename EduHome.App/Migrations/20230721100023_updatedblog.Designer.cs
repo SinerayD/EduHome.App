@@ -4,6 +4,7 @@ using EduHomeApp.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EduHome.App.Migrations
 {
     [DbContext(typeof(EduHomeDbContext))]
-    partial class EduHomeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230721100023_updatedblog")]
+    partial class updatedblog
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -194,7 +196,7 @@ namespace EduHome.App.Migrations
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("BlogTags");
+                    b.ToTable("BlogTag");
                 });
 
             modelBuilder.Entity("EduHome.Core.Entities.ContactMessage", b =>
@@ -633,6 +635,7 @@ namespace EduHome.App.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Image")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
@@ -1016,7 +1019,7 @@ namespace EduHome.App.Migrations
                         .IsRequired();
 
                     b.HasOne("EduHomeCore.Entities.Category", "Category")
-                        .WithMany("BlogCategories")
+                        .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1270,8 +1273,6 @@ namespace EduHome.App.Migrations
 
             modelBuilder.Entity("EduHomeCore.Entities.Category", b =>
                 {
-                    b.Navigation("BlogCategories");
-
                     b.Navigation("CourseCategories");
                 });
 #pragma warning restore 612, 618

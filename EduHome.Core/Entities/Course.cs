@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.AspNetCore.Http;
+
 
 namespace EduHome.Core.Entities
 {
@@ -12,49 +12,49 @@ namespace EduHome.Core.Entities
     {
         [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
-
+        [Required]
         public string Description { get; set; }
+        [Required]
 
         public string AboutCourse { get; set; }
+        [Required]
 
         public string Apply { get; set; }
+        [Required]
 
         public string Certification { get; set; }
+        [Required]
 
-        [Required(ErrorMessage = "Start Date is required")]
-        [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
+        [Required]
 
-        [Required(ErrorMessage = "Course Duration is required")]
         public double CourseDuration { get; set; }
+        [Required]
 
-        [Required(ErrorMessage = "Class Duration is required")]
+
         public double ClassDuration { get; set; }
+        [Required]
+
 
         public string SkillLevel { get; set; }
+        [Required]
 
-        [Required(ErrorMessage = "Student Count is required")]
-        public int StudentCount { get; set; } 
 
-        [Required(ErrorMessage = "Course Fee is required")]
+        public int StudentCount { get; set; }
+        [Required]
+
         public double CourseFee { get; set; }
 
-        public string Image { get; set; }
+        public string? Image { get; set; }
 
-        [Required(ErrorMessage = "Course Assets ID is required")]
-        public int CourseAssetsId { get; set; }
-
-        [Required(ErrorMessage = "Course Language ID is required")]
+        [Required]
         public int CourseLanguageId { get; set; }
 
         [NotMapped]
-        public List<int> CategoryIds { get; set; }
+        public List<int>? CategoryIds { get; set; }
 
         [NotMapped]
-        public List<int> TagIds { get; set; }
-
-        public CourseAssets? CourseAssets { get; set; }
-
+        public List<int>? TagIds { get; set; }
         public CourseLanguage? CourseLanguage { get; set; }
 
         public List<CourseCategory>? CourseCategories { get; set; }
@@ -62,8 +62,6 @@ namespace EduHome.Core.Entities
         public List<CourseTag>? CourseTags { get; set; }
 
         [NotMapped]
-        [Display(Name = "Course Image")]
-        [Required(ErrorMessage = "Please choose an image")]
         public IFormFile? FormFile { get; set; }
     }
 }
