@@ -17,7 +17,7 @@
                 <tr>
                     <th scope="row">@item.Id</th>
                     <th>@item.Title</th>
-                    <th><img style="width:100px;height:100px" src="assets/img/@item.Image" /></th>
+                    <th><img style="width:100px;height:100px" src="~/assets/img/blog/@item.Image" /></th>
                     <th>@item.CreatedDate.Day/@item.CreatedDate.Month/@item.CreatedDate.Year</th>
                     <td>
                         <a asp-controller="blog" asp-action="update" asp-route-id="@item.Id">

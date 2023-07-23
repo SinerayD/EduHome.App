@@ -41,10 +41,10 @@ namespace EduHome.App.Areas.Admin.Controllers
             ViewBag.Categories = await _context.Categories.Where(x => !x.IsDeleted).ToListAsync();
             ViewBag.Tags = await _context.Tags.Where(x => !x.IsDeleted).ToListAsync();
 
-            if (!ModelState.IsValid)
-            {
-                return View(blog);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(blog);
+            //}
             if (blog.FormFile is null)
             {
                 ModelState.AddModelError("file", "Image can not be empty");

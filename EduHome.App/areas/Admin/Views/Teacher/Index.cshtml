@@ -4,10 +4,17 @@
         <thead>
             <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Fullname:</th>
+                <th scope="col">Fullname</th>
+                <th scope="col">Mail</th>
+                <th scope="col">Experience</th>
+                <th scope="col">About Me</th>
+                <th scope="col">Skype</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Faculty</th>
+                <th scope="col">Image</th>
                 <th scope="col">Position</th>
                 <th scope="col">Degree</th>
-                <th scope="col">Image</th>
+                <th scope="col">Hobby</th>
                 <th scope="col">Update</th>
                 <th scope="col">Delete</th>
             </tr>
@@ -20,7 +27,17 @@
                     <th scope="row">@item.Id</th>
                     <th>@item.FullName</th>
                     <th>@item.Position.Name</th>
+                    <th>@item.Mail</th>
+                    <th>@item.Experience</th>
+                    <th>@item.AboutMe</th>
+                    <th>@item.Skype</th>
+                    <th>@item.PhoneNumber</th>
+                    <th>@item.Faculty</th>
+                    <th>@item.Image</th>
+                    <th>@item.Position.Name</th>
                     <th>@item.Degree.Name</th>
+                    <th>@item.TeacherHobbies</th>
+
                     <th><img style="width:70px;height:70px;object-fit:cover;" src="/assets/img/teacher/@item.Image" /></th>
                     <td><a asp-controller="teacher" asp-action="update" asp-route-id="@item.Id"><i class="fas fa-edit text text-primary"></i></a></td>
                     <td><a onclick="if (!confirm('Delete selected item?')){return false;}" asp-controller="teacher" asp-action="Delete" asp-route-id="@item.Id" class=" delete-item"><i class="fas fa-trash text text-danger"></i></a></td>

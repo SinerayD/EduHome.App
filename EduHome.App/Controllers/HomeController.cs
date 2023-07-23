@@ -18,7 +18,6 @@ namespace Fiorello.App.areas.Admin.Controllers
             HomeViewModel homeViewModel = new HomeViewModel
             {
                 Courses = await _context.Courses.Where(x => !x.IsDeleted).ToListAsync(),
-                 
 
                 Categories = await _context.Categories.Where(x => !x.IsDeleted).ToListAsync(),
 

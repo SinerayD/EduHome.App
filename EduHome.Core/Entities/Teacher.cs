@@ -51,6 +51,8 @@ using EduHomeCore.Entities;
 
             [NotMapped]
             public IFormFile? FormFile { get; set; }
-        }
+
+            
+    }
     }
 

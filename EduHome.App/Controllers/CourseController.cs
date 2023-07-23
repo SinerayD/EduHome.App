@@ -18,20 +18,18 @@ namespace EduHome.App.Controllers
 
         public async Task<IActionResult> Index(int? id)
         {
-            IEnumerable<Teacher> teachers;
+            IEnumerable<Course> teachers;
 
             if (id == null || id == 0)
             {
-                teachers = await _context.Teachers
+                teachers = await _context.Courses
                     .Where(x => !x.IsDeleted)
-                    .Include(x => x.Position)
                     .ToListAsync();
             }
             else
             {
-                teachers = await _context.Teachers
+                teachers = await _context.Courses
                     .Where(x => !x.IsDeleted)
-                    .Include(x => x.Position)
                     .ToListAsync();
             }
 
