@@ -29,13 +29,13 @@
 		</div>
 		<div class="form-group">
 			<label asp-for="HeaderLogo">HeaderLogo</label>
-			<input class="form-control" asp-for="HeaderLogo" />
-			<span asp-validation-for="HeaderLogo" class="text text-danger"></span>
+			<input type="file" class="form-control" asp-for="@Model.FormFile" />
+			<span asp-validation-for="FormFile" class="text text-danger"></span>
 		</div>
 		<div class="form-group">
 			<label asp-for="FooterLogo">FooterLogo</label>
-			<input class="form-control" asp-for="FooterLogo" />
-			<span asp-validation-for="FooterLogo" class="text text-danger"></span>
+			<input type="file" class="form-control" asp-for="@Model.FormFile" />
+			<span asp-validation-for="FormFile" class="text text-danger"></span>
 		</div>
 		<div class="form-group">
 			<label asp-for="@Model.FormFile">Image</label>

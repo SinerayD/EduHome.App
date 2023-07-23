@@ -4,9 +4,15 @@
         <thead>
             <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Title:</th>
-                <th scope="col">Image:</th>
-                <th scope="col">Logo:</th>
+                <th scope="col">About Title</th>
+                <th scope="col">About Text</th>
+                <th scope="col">Link</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Email</th>
+                <th scope="col">Address</th>
+                <th scope="col">Header Logo</th>
+                <th scope="col">Footer Logo</th>
+                <th scope="col">About Image</th>
                 <th scope="col">Update</th>
                 <th scope="col">Delete</th>
             </tr>
@@ -17,6 +23,12 @@
                 <tr>
                     <th scope="row">@item.Id</th>
                     <th>@item.AboutTitle</th>
+                    <th>@item.AboutText</th>
+                    <th>@item.VideoLink</th>
+                    <th>@item.PhoneNumber</th>
+                    <th>@item.Email</th>
+                    <th>@item.Address</th>
+                    <th><img style="width:70px;height:70px;object-fit:cover;" src="/assets/img/about/@item.AboutImage" /></th>
                     <th><img style="width:100px;height:100px" src="assets/img/logo/@item.HeaderLogo" /></th>
                     <th><img style="width:100px;height:100px" src="assets/img/logo/@item.FooterLogo" /></th>
                     <td>
