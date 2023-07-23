@@ -6,7 +6,7 @@ using EduHomeApp.Context;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Fiorello.App.Controllers
+namespace EduHome.App.Controllers
 {
     public class TeacherController : Controller
     {

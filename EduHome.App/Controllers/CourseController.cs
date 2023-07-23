@@ -1,5 +1,4 @@
 ﻿using EduHome.App.ViewModel;
-using EduHome.App.ViewModels;
 using EduHome.Core.Entities;
 using EduHomeApp.Context;
 using Microsoft.AspNetCore.Mvc;
