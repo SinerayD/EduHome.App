@@ -1,73 +1,42 @@
 ﻿@model HomeViewModel
-<!-- Background Area Start -->
 <section id="slider-container" class="slider-area two">
+    @if (!string.IsNullOrWhiteSpace((string)TempData["Register"]))
+    {
+        <div style="display:none;" id="verifyEmail">
+            @TempData["Register"]
+        </div>
+    }
+    @if (!string.IsNullOrWhiteSpace((string)TempData["Verify"]))
+    {
+        <div style="display:none;" id="successVerify">
+            @TempData["Verify"]
+        </div>
+    }
     <div class="slider-owl owl-theme owl-carousel">
-        <!-- Start Slingle Slide -->
-        <div class="single-slide item" style="background-image: url(/assets/img/slider/slider2.jpg);">
-            <!-- Start Slider Content -->
-            <div class="slider-content-area">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-10 col-md-offset-1">
-                            <div class="slide-content-wrapper">
-                                <div class="slide-content text-center">
-                                    <h2>EDUCATION MAKES HUMANITY</h2>
-                                    <p>I must explain to you how all this mistaken idea of denouncing pleasure and prising pain was born, and I will give you a complete account of the system.</p>
-                                    <a class="default-btn" href="~/assets/about.html">Learn more</a>
+        @foreach (var item in Model.Sliders)
+        {
+            <div class="single-slide item" style="background-image: url(/img/slider/@item.Image)">
+                <!-- Start Slider Content -->
+                <div class="slider-content-area">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="slide-content-wrapper">
+                                    <div class="slide-content text-center">
+                                        <h2>@item.Title </h2>
+                                        <p>@item.Text</p>
+                                        <a class="default-btn" href="@item.Link">Learn more</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- Start Slider Content -->
             </div>
-            <!-- End Slider Content -->
-        </div>
-        <!-- End Slingle Slide -->
-        <!-- Start Slingle Slide -->
-        <div class="single-slide item" style="background-image: url(/assets/img/slider/slider3.jpg);">
-            <!-- Start Slider Content -->
-            <div class="slider-content-area">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-10 col-md-offset-1">
-                            <div class="slide-content-wrapper">
-                                <div class="slide-content text-center">
-                                    <h2>EDUCATION MAKES HUMANITY</h2>
-                                    <p>I must explain to you how all this mistaken idea of denouncing pleasure and prising pain was born, and I will give you a complete account of the system.</p>
-                                    <a class="default-btn" href="~/assets/about.html">Learn more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Start Slider Content -->
-        </div>
-        <!-- End Slingle Slide -->
-        <!-- Start Slingle Slide -->
-        <div class="single-slide item" style="background-image: url(/assets/img/slider/slider1.jpg);">
-            <!-- Start Slider Content -->
-            <div class="slider-content-area">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-10 col-md-offset-1">
-                            <div class="slide-content-wrapper">
-                                <div class="slide-content text-center">
-                                    <h2>EDUCATION MAKES HUMANITY</h2>
-                                    <p>I must explain to you how all this mistaken idea of denouncing pleasure and prising pain was born, and I will give you a complete account of the system.</p>
-                                    <a class="default-btn" href="~/assets/about.html">Learn more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Start Slider Content -->
-        </div>
-        <!-- End Slingle Slide -->
+        }
     </div>
 </section>
-
 <!-- Background Area End -->
 <!-- Service Start -->
 <div class="service-area two pt-150 pb-150">
@@ -75,19 +44,19 @@
         <div class="row">
             <div class="col-md-4 col-sm-4 col-xs-12">
                 <div class="single-service">
-                    <h3><a href="~/assets/teacher.html">PROFESSIONAL TEACHER</a></h3>
+                    <h3><a href="teacher.html">PROFESSIONAL TEACHER</a></h3>
                     <p>I must explain to you how all this mistaken denouncing pleure and praising pain </p>
                 </div>
             </div>
             <div class="col-md-4 col-sm-4 col-xs-12">
                 <div class="single-service">
-                    <h3><a href="~/assets/teacher.html">PROFESSIONAL TEACHER</a></h3>
+                    <h3><a href="teacher.html">PROFESSIONAL TEACHER</a></h3>
                     <p>I must explain to you how all this mistaken denouncing pleure and praising pain </p>
                 </div>
             </div>
             <div class="col-md-4 col-sm-4 col-xs-12">
                 <div class="single-service">
-                    <h3><a href="~/assets/teacher.html">PROFESSIONAL TEACHER</a></h3>
+                    <h3><a href="teacher.html">PROFESSIONAL TEACHER</a></h3>
                     <p>I must explain to you how all this mistaken denouncing pleure and praising pain </p>
                 </div>
             </div>
@@ -98,21 +67,7 @@
 <!-- About Start -->
 <div class="about-area pb-155">
     <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-sm-6">
-                <div class="about-content">
-                    <h2>WELCOME TO <span>EDUHOME</span></h2>
-                    <p>I must explain to you how all this mistaken idea of denouncing pleure and prsing pain was born and I will give you a complete account of the system, and expound the actual teachings  the master-builder of humanit happiness</p>
-                    <p class="hidden-sm">I must explain to you how all this mistaken idea of denouncing pleure and prsing pain was born and I will give you a complete account of the system</p>
-                    <a class="default-btn" href="~/assets/about.html">view courses</a>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-6">
-                <div class="about-img">
-                    <img src="~/assets/img/about/about.png" alt="about">
-                </div>
-            </div>
-        </div>
+        @await Html.PartialAsync("_WelcomeText",Model.Settings)
     </div>
 </div>
 <!-- About End -->
@@ -122,33 +77,15 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="section-title">
-                    <img src="~/assets/img/icon/section1.png" alt="section-title">
+                    <img src="img/icon/section1.png" alt="section-title">
                     <h2>COURSES WE OFFER</h2>
                 </div>
             </div>
         </div>
         <div class="row">
-            @foreach (var course in Model.Courses)
-            {
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="single-course">
-                        <div class="course-img">
-                            <a href="~/assets/course-details.html">
-                                <img src="~/assets/img/course/@course.Image" alt="course">
-                                <div class="course-hover">
-                                    <i class="fa fa-link"></i>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="course-content">
-                            <h3><a href="~/assets/course-details.html">@course.Name</a></h3>
-                            <p>@course.Description</p>
-                            <a class="default-btn" asp-controller="course" asp-action="detail" asp-route-id=@course.Id >read more</a>
-                        </div>
-                    </div>
-                </div>
-            }
-           
+
+            @await Html.PartialAsync("_Course",Model.Courses.Take(3))
+        </div>
         </div>
     </div>
 </div>
@@ -162,7 +99,7 @@
                     <h3>TAKE A VIDEO TOUR</h3>
                     <div class="notice-video">
                         <div class="video-icon video-hover">
-                            <a class="video-popup" href="~/assets/https://www.youtube.com/watch?v=to6Ghf8UL7o">
+                            <a class="video-popup" href="https://www.youtube.com/watch?v=31eOI1YT_0Y">
                                 <i class="zmdi zmdi-play"></i>
                             </a>
                         </div>
@@ -173,30 +110,7 @@
                 <div class="notice-left-wrapper">
                     <h3>notice board</h3>
                     <div class="notice-left">
-                        <div class="single-notice-left mb-23 pb-20">
-                            <h4>5, June 2017</h4>
-                            <p>I must explain to you how all this mistaken idea of denouncing plasure and praising pain was born and I will give you a complete </p>
-                        </div>
-                        <div class="single-notice-left hidden-sm mb-23 pb-20">
-                            <h4>4, June 2017</h4>
-                            <p>I must explain to you how all this mistaken idea of denouncing plasure and praising pain was born and I will give you a complete </p>
-                        </div>
-                        <div class="single-notice-left pb-70">
-                            <h4>3, June 2017</h4>
-                            <p>I must explain to you how all this mistaken idea of denouncing plasure and praising pain was born and I will give you a complete </p>
-                        </div>
-                        <div class="single-notice-left mb-23 pb-20">
-                            <h4>5, June 2017</h4>
-                            <p>I must explain to you how all this mistaken idea of denouncing plasure and praising pain was born and I will give you a complete </p>
-                        </div>
-                        <div class="single-notice-left hidden-sm mb-23 pb-20">
-                            <h4>4, June 2017</h4>
-                            <p>I must explain to you how all this mistaken idea of denouncing plasure and praising pain was born and I will give you a complete </p>
-                        </div>
-                        <div class="single-notice-left pb-70">
-                            <h4>3, June 2017</h4>
-                            <p>I must explain to you how all this mistaken idea of denouncing plasure and praising pain was born and I will give you a complete </p>
-                        </div>
+                        @await Html.PartialAsync("_NoticeBoard",Model.Notices)
                     </div>
                 </div>
             </div>
@@ -210,7 +124,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="section-title">
-                    <img src="~/assets/img/icon/section.png" alt="section-title">
+                    <img src="img/icon/section.png" alt="section-title">
                     <h2>UPCOMMING EVENTS</h2>
                 </div>
             </div>
@@ -219,33 +133,33 @@
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="single-event mb-35">
                     <div class="event-img">
-                        <a href="~/assets/event-details.html"><img src="~/assets/img/event/event1.jpg" alt="event"></a>
+                        <a href="event-details.html"><img src="img/event/event1.jpg" alt="event"></a>
                     </div>
                     <div class="event-content text-left">
                         <h3>20 June 2017</h3>
-                        <h4><a href="~/assets/event-details.html">ADVANCE PHP WORKSHOP</a></h4>
+                        <h4><a href="event-details.html">ADVANCE PHP WORKSHOP</a></h4>
                         <ul>
                             <li><i class="fa fa-clock-o"></i>9.00 AM - 4.45 PM</li>
                             <li><i class="fa fa-map-marker"></i>New Yourk City</li>
                         </ul>
                         <div class="event-content-right">
-                            <a class="default-btn" href="~/assets/event-details.html">join now</a>
+                            <a class="default-btn" href="event-details.html">join now</a>
                         </div>
                     </div>
                 </div>
                 <div class="single-event hidden-sm hidden-xs">
                     <div class="event-img">
-                        <a href="~/assets/event-details.html"><img src="~/assets/img/event/event3.jpg" alt="event"></a>
+                        <a href="event-details.html"><img src="img/event/event3.jpg" alt="event"></a>
                     </div>
                     <div class="event-content text-left">
                         <h3>16 June 2017</h3>
-                        <h4><a href="~/assets/event-details.html">learning english history</a></h4>
+                        <h4><a href="event-details.html">learning english history</a></h4>
                         <ul>
                             <li><i class="fa fa-clock-o"></i>9.00 AM - 4.45 PM</li>
                             <li><i class="fa fa-map-marker"></i>New Yourk City</li>
                         </ul>
                         <div class="event-content-right">
-                            <a class="default-btn" href="~/assets/event-details.html">join now</a>
+                            <a class="default-btn" href="event-details.html">join now</a>
                         </div>
                     </div>
                 </div>
@@ -253,33 +167,33 @@
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="single-event mb-35">
                     <div class="event-img">
-                        <a href="~/assets/event-details.html"><img src="~/assets/img/event/event2.jpg" alt="event"></a>
+                        <a href="event-details.html"><img src="img/event/event2.jpg" alt="event"></a>
                     </div>
                     <div class="event-content text-left">
                         <h3>18 June 2017</h3>
-                        <h4><a href="~/assets/event-details.html">DIGITAL MARKETING ANALYSIS</a></h4>
+                        <h4><a href="event-details.html">DIGITAL MARKETING ANALYSIS</a></h4>
                         <ul>
                             <li><i class="fa fa-clock-o"></i>9.00 AM - 4.45 PM</li>
                             <li><i class="fa fa-map-marker"></i>New Yourk City</li>
                         </ul>
                         <div class="event-content-right">
-                            <a class="default-btn" href="~/assets/event-details.html">join now</a>
+                            <a class="default-btn" href="event-details.html">join now</a>
                         </div>
                     </div>
                 </div>
                 <div class="single-event hidden-sm hidden-xs">
                     <div class="event-img">
-                        <a href="~/assets/event-details.html"><img src="~/assets/img/event/event3.jpg" alt="event"></a>
+                        <a href="event-details.html"><img src="img/event/event3.jpg" alt="event"></a>
                     </div>
                     <div class="event-content text-left">
                         <h3>14 June 2017</h3>
-                        <h4><a href="~/assets/event-details.html">UI & UX DESIGNER MEETUP</a></h4>
+                        <h4><a href="event-details.html">UI & UX DESIGNER MEETUP</a></h4>
                         <ul>
                             <li><i class="fa fa-clock-o"></i>9.00 AM - 4.45 PM</li>
                             <li><i class="fa fa-map-marker"></i>New Yourk City</li>
                         </ul>
                         <div class="event-content-right">
-                            <a class="default-btn" href="~/assets/event-details.html">join now</a>
+                            <a class="default-btn" href="event-details.html">join now</a>
                         </div>
                     </div>
                 </div>
@@ -293,127 +207,56 @@
     <div class="container">
         <div class="row">
             <div class="testimonial-owl owl-theme owl-carousel">
-                <div class="col-md-8 col-md-offset-2 col-sm-12">
-                    <div class="single-testimonial">
-                        <div class="testimonial-info">
-                            <div class="testimonial-img">
-                                <img src="~/assets/img/testimonial/testimonial.jpg" alt="testimonial">
-                            </div>
-                            <div class="testimonial-content">
-                                <p>I must explain to you how all this mistaken idea of denoung pleure and praising pain was born and I will give you a coete account of the system, and expound the actual</p>
-                                <h4>David Morgan</h4>
-                                <h5>Student, CSE</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                        @await Html.PartialAsync("_TeacherSlider",Model.Teachers)
             </div>
         </div>
     </div>
 </div>
 <!-- Testimonial Area End -->
-<!-- Blog Area Start -->
+<!--     Area Start -->
 <div class="blog-area pt-150 pb-150">
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
                 <div class="section-title text-center">
-                    <img src="~/assets/img/icon/section.png" alt="section-title">
+                    <img src="img/icon/section.png" alt="section-title">
                     <h2>LATEST FROM BLOG</h2>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="single-blog">
-                    <div class="blog-img">
-                        <a href="~/assets/blog-details.html"><img src="~/assets/img/blog/blog1.jpg" alt="blog"></a>
-                        <div class="blog-hover">
-                            <a href="~/assets/blog-details.html"><i class="fa fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="blog-content">
-                        <div class="blog-top">
-                            <p>By Alex  /  June 20, 2017  /  <i class="fa fa-comments-o"></i> 4</p>
-                        </div>
-                        <div class="blog-bottom">
-                            <h2><a href="~/assets/blog-details.html">I must explain to you how all this a mistaken idea </a></h2>
-                            <a href="~/assets/blog-details.html">read more</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="single-blog">
-                    <div class="blog-img">
-                        <a href="~/assets/blog-details.html"><img src="~/assets/img/blog/blog2.jpg" alt="blog"></a>
-                        <div class="blog-hover">
-                            <a href="~/assets/blog-details.html"><i class="fa fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="blog-content">
-                        <div class="blog-top">
-                            <p>By Alex  /  June 20, 2017  /  <i class="fa fa-comments-o"></i> 4</p>
-                        </div>
-                        <div class="blog-bottom">
-                            <h2><a href="~/assets/blog-details.html">I must explain to you how all this a mistaken idea </a></h2>
-                            <a href="~/assets/blog-details.html">read more</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 hidden-sm col-xs-12">
-                <div class="single-blog">
-                    <div class="blog-img">
-                        <a href="~/assets/blog-details.html"><img src="~/assets/img/blog/blog3.jpg" alt="blog"></a>
-                        <div class="blog-hover">
-                            <a href="~/assets/blog-details.html"><i class="fa fa-link"></i></a>
-                        </div>
-                    </div>
-                    <div class="blog-content">
-                        <div class="blog-top">
-                            <p>By Alex  /  June 20, 2017  /  <i class="fa fa-comments-o"></i> 4</p>
-                        </div>
-                        <div class="blog-bottom">
-                            <h2><a href="~/assets/blog-details.html">I must explain to you how all this a mistaken idea </a></h2>
-                            <a href="~/assets/blog-details.html">read more</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @await Html.PartialAsync("_Blog",Model.Blogs)
         </div>
     </div>
 </div>
 <!-- Blog Area End -->
-<!-- Subscribe Start -->
-<div class="subscribe-area pt-60 pb-70">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="subscribe-content section-title text-center">
-                    <h2>subscribe our newsletter</h2>
-                    <p>I must explain to you how all this mistaken idea </p>
-                </div>
-                <div class="newsletter-form mc_embed_signup">
-                    <form asp-controller="Subscribe" asp-action="Index" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-                        <div id="mc_embed_signup_scroll" class="mc-form">
-                            <input type="email" class="email" id="mce-EMAIL" placeholder="Enter your e-mail address" required>
-                            <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-                            <div class="mc-news" aria-hidden="true"><input type="text" name="b_6bbb9b6f5827bd842d9640c82_05d85f18ef" tabindex="-1" value=""></div>
-                            <button id="mc-embedded-subscribe" class="default-btn" type="submit" name="subscribe"><span>subscribe</span></button>
-                        </div>
-                    </form>
 
-                    <!-- mailchimp-alerts Start -->
-                    <div class="mailchimp-alerts">
-                        <div class="mailchimp-submitting"></div><!-- mailchimp-submitting end -->
-                        <div class="mailchimp-success"></div><!-- mailchimp-success end -->
-                        <div class="mailchimp-error"></div><!-- mailchimp-error end -->
-                    </div>
-                    <!-- mailchimp-alerts end -->
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Subscribe End -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    const verifyEmail = document.querySelector("#verifyEmail");
+    const successVerify = document.querySelector("#successVerify")
+    if (verifyEmail != undefined) {
+        const message1 = verifyEmail.innerHTML;
+        if (message1 != "") {
+            Swal.fire({
+                title: `${message1}`,
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                }
+            })
+        }
+    }
+    if (successVerify != undefined) {
+        const message = successVerify.innerHTML;
+        if (message != "") {
+            Swal.fire(
+                `${message}`,
+                'You clicked the button!',
+                'success'
+            )
+        }
+    }
+</script>

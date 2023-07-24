@@ -1,4 +1,4 @@
-﻿@model Blog
+﻿@model BlogViewModel
 <!-- Banner Area Start -->
 <div class="banner-area-wrapper">
     <div class="banner-area text-center">
@@ -23,12 +23,12 @@
             <div class="col-md-8">
                 <div class="blog-details">
                     <div style="width:767px;height:367px;" class="blog-details-img">
-                        <img style="width:100%;height:100%;" src="~/img/blog/@Model.Blog.Image" alt="blog-details">
+                        <img style="width:100%;height:100%;" src="~/img/blog/@Model.blog.Image" alt="blog-details">
                     </div>
                     <div class="blog-details-content">
-                        <h2>@Model.Blog.Title</h2>
-                        <h6>By @Model.Blog.Author  /  @Model.Blog.CreatedDate.Day.@Model.Blog.CreatedDate.Month.@Model.Blog.CreatedDate.Year  /  <i class="fa fa-comments-o"></i> 4</h6>
-                        <p>@Model.Blog.Description</p>
+                        <h2>@Model.blog.Title</h2>
+                        <h6>By @Model.blog.Author  /  @Model.blog.CreatedDate.Day.@Model.blog.CreatedDate.Month.@Model.blog.CreatedDate.Year  /  <i class="fa fa-comments-o"></i> 4</h6>
+                        <p>@Model.blog.Description</p>
                         @*                        <p>I must explain to you how all this a mistaken idea of denouncing great explorer of the rut the is lder of human haness pcias unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam</p>
                         <p class="quote">I must explain to you how all this a mistaken idea of denouncing great explorer of the rut the is lder of human haness pcias unde omnis iste natus error sit voluptatem accusantium doloremque la udantium, totam rem aperiam</p>
                         <p>I must explain to you how all this a mistaken idea of denouncing great explorer of the rut the is lder of human haness pcias unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque sa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo emo enim ipsam</p>*@
